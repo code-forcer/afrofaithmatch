@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" width="520" height="160">
+  <defs>
+    <linearGradient id="cherryGradDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e60004"/>
+      <stop offset="100%" style="stop-color:#b80003"/>
+    </linearGradient>
+    <linearGradient id="goldGradDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8cf7a"/>
+      <stop offset="100%" style="stop-color:#d4b96a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="520" height="160" fill="#1a1a1a" rx="12"/>
+
+  <g transform="translate(20, 20)">
+    <path d="M 60,15 C 60,5 45,0 30,0 C 12,0 0,12 0,30 C 0,55 30,80 60,105 L 60,15 Z" fill="url(#cherryGradDark)"/>
+    <path d="M 60,15 C 60,5 75,0 90,0 C 108,0 120,12 120,30 C 120,55 90,80 60,105 L 60,15 Z" fill="url(#goldGradDark)"/>
+    <g transform="translate(60, 48)">
+      <rect x="-5" y="-22" width="10" height="44" rx="2" fill="#FAF8F3"/>
+      <rect x="-18" y="-8" width="36" height="10" rx="2" fill="#FAF8F3"/>
+    </g>
+    <circle cx="30" cy="30" r="18" fill="none" stroke="#FAF8F3" stroke-width="1.5" opacity="0.15"/>
+    <circle cx="90" cy="30" r="18" fill="none" stroke="#FAF8F3" stroke-width="1.5" opacity="0.15"/>
+  </g>
+
+  <g transform="translate(165, 58)">
+    <text x="0" y="0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="42" font-weight="800" fill="#FAF8F3" letter-spacing="-1">Afro</text>
+    <text x="92" y="0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="42" font-weight="800" fill="#C6A85D" letter-spacing="-1">Faith</text>
+    <text x="186" y="0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="42" font-weight="800" fill="#FAF8F3" letter-spacing="-1">Match</text>
+    <text x="2" y="28" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="500" fill="#FAF8F3" opacity="0.6" letter-spacing="3">WHERE FAITH LEADS TO LOVE</text>
+    <line x1="2" y1="40" x2="120" y2="40" stroke="#C6A85D" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+    <circle cx="128" cy="40" r="3" fill="#C6A85D" opacity="0.5"/>
+  </g>
+</svg>

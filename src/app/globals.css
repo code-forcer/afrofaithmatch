@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/* ============================================================
+   AFRO FAITH MATCH — Design Tokens
+   ============================================================ */
+:root {
+  --cherry:         #9a0002;
+  --cherry-dark:    #7a0002;
+  --cherry-10:      rgba(154, 0, 2, 0.10);
+  --cherry-15:      rgba(154, 0, 2, 0.15);
+  --cherry-20:      rgba(154, 0, 2, 0.20);
+  --cherry-25:      rgba(154, 0, 2, 0.25);
+  --cherry-5:       rgba(154, 0, 2, 0.05);
+  --gold:           #C6A85D;
+  --gold-dark:      #a8894a;
+  --gold-30:        rgba(198, 168, 93, 0.30);
+  --gold-40:        rgba(198, 168, 93, 0.40);
+  --gold-20:        rgba(198, 168, 93, 0.20);
+  --cream:          #FAF8F3;
+  --cream-text:     #ffefb3;
+  --off-white:      #fdfafb;
+  --text-dark:      #1a1a1a;
+  --text-muted:     #555b66;
+  --text-gray:      #6b7280;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: var(--cream);
+  color: var(--text-dark);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Headings use Canela font */
+h1, h2, h3, h4, h5, h6,
+.heading {
+  font-family: var(--font-canela), Georgia, serif;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+canvas {
+  display: block;
+  pointer-events: none;
+}
+
+/* ============================================================
+   GLOBAL KEYFRAMES
+   ============================================================ */
+
+@keyframes heroFadeInUp {
+  0%   { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroSlide {
+  0%   { opacity: 0; transform: scale(1.0); }
+  5%   { opacity: 1; }
+  20%  { opacity: 1; transform: scale(1.06); }
+  26%  { opacity: 0; transform: scale(1.08); }
+  100% { opacity: 0; transform: scale(1.0); }
+}
+
+@keyframes blobFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(30px, -20px) scale(1.05); }
+  66%  { transform: translate(-20px, 15px) scale(0.95); }
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(100%) translateX(0) scale(0.8); opacity: 0; }
+  10%  { opacity: 0.15; }
+  50%  { opacity: 0.25; }
+  90%  { opacity: 0.1; }
+  100% { transform: translateY(-120vh) translateX(30px) scale(1.2); opacity: 0; }
+}
+
+@keyframes shimmerBorder {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes lineExpand {
+  from { width: 0; opacity: 0; }
+  to   { width: 96px; opacity: 0.6; }
+}
+
+@keyframes fillBar {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+@keyframes ringSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+}
+
+@keyframes highlightSweep {
+  0%   { background-size: 0% 40%; }
+  100% { background-size: 100% 40%; }
+}
+
+@keyframes kenBurns {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes dotPop {
+  0%   { transform: scale(0); opacity: 0; }
+  70%  { transform: scale(1.3); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes iconPop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  60%  { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(154, 0, 2, 0.15); }
+  50%       { box-shadow: 0 0 0 8px rgba(154, 0, 2, 0); }
+}
+
+/* ============================================================
+   GLOBAL UTILITY CLASSES
+   ============================================================ */
+
+.cherry-gradient {
+  background: linear-gradient(135deg, var(--cherry) 0%, var(--cherry-dark) 100%);
+}
+
+.gold-gradient {
+  background: linear-gradient(90deg, var(--gold-20), var(--gold), var(--gold-20));
+}
+
+/* Shine sweep button effect */
+.shine-btn {
+  position: relative;
+  overflow: hidden;
+}
+.shine-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 40%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+}
+.shine-btn:hover::after { left: 130%; }
+
+/* Avatar conic ring */
+.avatar-ring {
+  padding: 3px;
+  background: conic-gradient(from 180deg, #9a0002, #C6A85D, #9a0002);
+  border-radius: 9999px;
+}
+
+/* Word highlight sweep */
+.word-highlight {
+  background-image: linear-gradient(to right, rgba(198,168,93,0.25), rgba(198,168,93,0.25));
+  background-repeat: no-repeat;
+  background-position: 0 85%;
+  background-size: 0% 40%;
+}
+.word-highlight.active {
+  animation: highlightSweep 0.8s ease forwards;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

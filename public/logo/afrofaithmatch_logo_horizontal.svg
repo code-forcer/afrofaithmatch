@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" width="520" height="160">
+  <defs>
+    <linearGradient id="cherryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#b80003"/>
+      <stop offset="100%" style="stop-color:#9a0002"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d4b96a"/>
+      <stop offset="100%" style="stop-color:#C6A85D"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#9a0002" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Icon: Split Heart with Cross -->
+  <g transform="translate(20, 20)" filter="url(#softShadow)">
+    <!-- Left half heart (Cherry) -->
+    <path d="M 60,15 
+             C 60,5 45,0 30,0 
+             C 12,0 0,12 0,30 
+             C 0,55 30,80 60,105 
+             L 60,15 Z" 
+          fill="url(#cherryGrad)"/>
+
+    <!-- Right half heart (Gold) -->
+    <path d="M 60,15 
+             C 60,5 75,0 90,0 
+             C 108,0 120,12 120,30 
+             C 120,55 90,80 60,105 
+             L 60,15 Z" 
+          fill="url(#goldGrad)"/>
+
+    <!-- White Cross at the center (where the two halves meet) -->
+    <g transform="translate(60, 48)">
+      <!-- Vertical bar -->
+      <rect x="-5" y="-22" width="10" height="44" rx="2" fill="#FAF8F3"/>
+      <!-- Horizontal bar -->
+      <rect x="-18" y="-8" width="36" height="10" rx="2" fill="#FAF8F3"/>
+      <!-- Center glow dot -->
+      <circle cx="0" cy="-3" r="3" fill="#C6A85D" opacity="0.3"/>
+    </g>
+
+    <!-- Subtle connection rings (match/souls connecting) -->
+    <circle cx="30" cy="30" r="18" fill="none" stroke="#FAF8F3" stroke-width="1.5" opacity="0.25"/>
+    <circle cx="90" cy="30" r="18" fill="none" stroke="#FAF8F3" stroke-width="1.5" opacity="0.25"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(165, 58)">
+    <!-- Afro -->
+    <text x="0" y="0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="42" font-weight="800" fill="#9a0002" letter-spacing="-1">Afro</text>
+    <!-- Faith -->
+    <text x="92" y="0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="42" font-weight="800" fill="#C6A85D" letter-spacing="-1">Faith</text>
+    <!-- Match -->
+    <text x="186" y="0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="42" font-weight="800" fill="#9a0002" letter-spacing="-1">Match</text>
+
+    <!-- Tagline -->
+    <text x="2" y="28" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="500" fill="#9a0002" opacity="0.7" letter-spacing="3">WHERE FAITH LEADS TO LOVE</text>
+
+    <!-- Decorative underline -->
+    <line x1="2" y1="40" x2="120" y2="40" stroke="#C6A85D" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <circle cx="128" cy="40" r="3" fill="#C6A85D" opacity="0.6"/>
+  </g>
+</svg>
