@@ -1,208 +1,220 @@
-"use client";
+'use client';
+import { Box, Container, SimpleGrid, Text, Heading, VStack, Icon, Flex } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { FaHeart, FaHandsHelping, FaGlobeAfrica, FaCross } from 'react-icons/fa';
+import PageHeader from '@/components/PageHeader';
+import AnimatedSection from '@/components/AnimatedSection';
 
-import {
-    Box,
-    Container,
-    Heading,
-    Text,
-    VStack,
-    SimpleGrid,
-    Image,
-    Flex,
-    Icon,
-    Button,
-} from "@chakra-ui/react";
-import { FaHeart, FaUserSecret, FaHandsHelping, FaArrowRight } from "react-icons/fa";
+const MotionBox = motion(Box);
+const MotionFlex = motion(Flex);
 
-export default function AboutPage() {
-    return (
-        <>
+export default function AboutUsPage() {
+  const values = [
+    {
+      title: "Faith First",
+      description: "We believe that a strong foundation in Christ is the key to a lasting and fulfilling marriage.",
+      icon: FaCross,
+    },
+    {
+      title: "Authentic Connections",
+      description: "We foster an environment where members can build genuine, meaningful relationships.",
+      icon: FaHeart,
+    },
+    {
+      title: "Community Driven",
+      description: "Our platform is designed to support and uplift the Christian community worldwide.",
+      icon: FaHandsHelping,
+    },
+    {
+      title: "Global Reach",
+      description: "Connecting faithful singles across borders and cultures, united by one belief.",
+      icon: FaGlobeAfrica,
+    }
+  ];
 
-            <Box bg={{ base: "white", _dark: "black" }} minH="100vh">
+  return (
+    <Box as="main" bg="white" minH="100vh">
+      <PageHeader
+        title="About Afro Faith Match"
+        description="Discover our mission to connect Christian singles globally, grounded in faith and purpose."
+      />
 
-                {/* 1. Hero Section - The Mission */}
-                <Box
-                    py={{ base: 20, md: 32 }}
-                    bg={{ base: "blue.50", _dark: "gray.900" }}
-                    textAlign="center"
+      {/* ── Our Story ── */}
+      <Box py={20} position="relative">
+        {/* Ambient decorative blob */}
+        <MotionBox
+          position="absolute"
+          top="-10%"
+          right="-6%"
+          w="380px"
+          h="380px"
+          bg="#ff003608"
+          borderRadius="full"
+          animate={{ scale: [1, 1.12, 1] }}
+          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+          pointerEvents="none"
+        />
+
+        <Container maxW="7xl" position="relative">
+          <SimpleGrid columns={{ base: 1, lg: 2 }} gap={16} alignItems="center">
+            <AnimatedSection direction="right">
+              <Box position="relative">
+                <MotionBox
+                  position="absolute"
+                  top="-4"
+                  left="-4"
+                  w="20"
+                  h="20"
+                  bg="#ff0036"
+                  opacity={0.1}
+                  borderRadius="full"
+                  animate={{ scale: [1, 1.25, 1] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                <MotionBox
+                  w="full"
+                  h="400px"
+                  bg="gray.100"
+                  borderRadius="2xl"
+                  overflow="hidden"
+                  boxShadow="xl"
+                  position="relative"
+                  zIndex={1}
+                  initial={{ opacity: 0, scale: 0.95, rotate: -2 }}
+                  whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ type: 'spring', stiffness: 120, damping: 16 }}
+                  whileHover={{ scale: 1.015 }}
                 >
-                    <Container maxW="4xl">
-                        <Heading
-                            size="2xl"
-                            mb={6}
-                            color={{ base: "gray.900", _dark: "white" }}
-                            lineHeight="1.2"
-                        >
-                            We believe that your <br />
-                            <Box as="span" color="blue.500">feelings are valid.</Box>
-                        </Heading>
-                        <Text fontSize={{ base: "lg", md: "xl" }} color={{ base: "gray.600", _dark: "gray.400" }} maxW="2xl" mx="auto">
-                            LekeTheInfoGuy is more than just a website. It is a digital sanctuary for wins, worries, lost opportunities, and the lessons that shape us.
-                        </Text>
-                    </Container>
-                </Box>
+                  <Box
+                    as="img"
+                    src="https://images.unsplash.com/photo-1614804471619-50084aff54bd?q=80&w=800&auto=format&fit=crop"
+                    alt="A Christian couple who found each other through shared faith"
+                    w="full"
+                    h="full"
+                    objectFit="cover"
+                  />
+                </MotionBox>
 
-                {/* 2. The Story Section */}
-                <Container maxW="7xl" py={{ base: 16, md: 24 }}>
-                    <Flex direction={{ base: "column", md: "row" }} align="center" gap={12}>
-                        {/* Text Side */}
-                        <Box flex={1}>
-                            <Text
-                                fontWeight="bold"
-                                color="blue.500"
-                                letterSpacing="wide"
-                                fontSize="sm"
-                                textTransform="uppercase"
-                                mb={2}
-                            >
-                                Our Story
-                            </Text>
-                            <Heading size="xl" mb={6} color={{ base: "gray.900", _dark: "white" }}>
-                                Why we built this safe space
-                            </Heading>
-                            <VStack spacing={4} align="start" color={{ base: "gray.600", _dark: "gray.400" }} fontSize="lg">
-                                <Text>
-                                    In a world that is obsessed with "perfect" social media lives, we often forget that it's okay not to be okay. We hide our worries, bury our regrets, and celebrate our wins in silence.
-                                </Text>
-                                <Text>
-                                    I realized that we needed a place where the mask could come off. A place where you can say, "I missed this opportunity," and instead of judgment, you find others who say, "Me too."
-                                </Text>
-                                <Text>
-                                    This platform was built to turn lived experiences into a library of human wisdom.
-                                </Text>
-                            </VStack>
-                        </Box>
+                {/* Small floating stat card */}
+                <MotionBox
+                  initial={{ opacity: 0, y: 20, scale: 0.85 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4, type: 'spring', stiffness: 260, damping: 15 }}
+                  animate={{ y: [0, -8, 0] }}
+                  style={{ animationDuration: '4s' }}
+                  position="absolute"
+                  bottom="-6"
+                  right="-6"
+                  bg="white"
+                  borderRadius="xl"
+                  boxShadow="lg"
+                  px={5}
+                  py={4}
+                  zIndex={2}
+                >
+                  <Text fontSize="2xl" fontWeight="bold" color="#ff0036" lineHeight="1">
+                    10,000+
+                  </Text>
+                  <Text fontSize="xs" color="gray.500" mt={1}>
+                    Faith-verified members
+                  </Text>
+                </MotionBox>
+              </Box>
+            </AnimatedSection>
 
-                        {/* Image Side */}
-                        <Box flex={1} w="full">
-                            <Image
-                                src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1000&auto=format&fit=crop"
-                                alt="Friends talking"
-                                rounded="2xl"
-                                shadow="2xl"
-                                objectFit="cover"
-                                h={{ base: "300px", md: "500px" }}
-                                w="full"
-                            />
-                        </Box>
-                    </Flex>
-                </Container>
+            <AnimatedSection direction="left" delay={0.2}>
+              <VStack align="flex-start" gap={6}>
+                <Text color="#ff0036" fontWeight="bold" textTransform="uppercase" letterSpacing="wide">
+                  Our Story
+                </Text>
+                <Heading as="h2" size="2xl" color="gray.900" fontWeight="bold" lineHeight="1.2">
+                  Built on Faith, Designed for Love.
+                </Heading>
+                <Text fontSize="lg" color="gray.600" lineHeight="1.8">
+                  Afro Faith Match was born out of a desire to create a safe, welcoming, and faith-centered environment for Christian singles to meet. In a world where values are often compromised, we wanted to build a platform where your faith is celebrated, not hidden.
+                </Text>
+                <Text fontSize="lg" color="gray.600" lineHeight="1.8">
+                  Whether you are looking for fellowship, friendship, or a lifelong partner, our community is here to support you in your journey towards a Christ-centered relationship.
+                </Text>
+              </VStack>
+            </AnimatedSection>
+          </SimpleGrid>
+        </Container>
+      </Box>
 
-                {/* 3. Core Values */}
-                <Box bg={{ base: "gray.50", _dark: "gray.900" }} py={{ base: 16, md: 24 }}>
-                    <Container maxW="7xl">
-                        <VStack spacing={12}>
-                            <Heading textAlign="center" size="xl" color={{ base: "gray.900", _dark: "white" }}>
-                                Our Core Values
-                            </Heading>
+      {/* ── Core Values ── */}
+      <Box py={20} bg="gray.50">
+        <Container maxW="7xl">
+          <AnimatedSection direction="up">
+            <VStack mb={16} textAlign="center">
+              <Heading as="h2" size="2xl" color="gray.900">Our Core Values</Heading>
+              <Text fontSize="lg" color="gray.600" maxW="2xl">
+                The principles that guide everything we do at Afro Faith Match.
+              </Text>
+            </VStack>
+          </AnimatedSection>
 
-                            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10} w="full">
-                                {/* Value 1 */}
-                                <VStack
-                                    bg={{ base: "white", _dark: "gray.800" }}
-                                    p={8}
-                                    rounded="xl"
-                                    shadow="sm"
-                                    align="start"
-                                    spacing={4}
-                                >
-                                    <Box p={3} bg="red.100" color="red.500" rounded="lg">
-                                        <Icon as={FaHeart} boxSize={6} />
-                                    </Box>
-                                    <Heading size="md" color={{ base: "gray.900", _dark: "white" }}>Empathy First</Heading>
-                                    <Text color={{ base: "gray.600", _dark: "gray.400" }}>
-                                        We listen to understand, not to reply. Every story posted here is treated with respect and kindness.
-                                    </Text>
-                                </VStack>
+          <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 4 }}
+            gap={{ base: 6, md: 8 }}
+            rowGap={{ base: 6, md: 10 }}
+          >
+            {values.map((value, index) => (
+              <AnimatedSection key={index} delay={index * 0.1}>
+                <ValueCard value={value} />
+              </AnimatedSection>
+            ))}
+          </SimpleGrid>
+        </Container>
+      </Box>
+    </Box>
+  );
+}
 
-                                {/* Value 2 */}
-                                <VStack
-                                    bg={{ base: "white", _dark: "gray.800" }}
-                                    p={8}
-                                    rounded="xl"
-                                    shadow="sm"
-                                    align="start"
-                                    spacing={4}
-                                >
-                                    <Box p={3} bg="blue.100" color="blue.500" rounded="lg">
-                                        <Icon as={FaUserSecret} boxSize={6} />
-                                    </Box>
-                                    <Heading size="md" color={{ base: "gray.900", _dark: "white" }}>Safety & Anonymity</Heading>
-                                    <Text color={{ base: "gray.600", _dark: "gray.400" }}>
-                                        Your identity is yours to keep. We provide the tools to share your truth without fear of exposure.
-                                    </Text>
-                                </VStack>
+function ValueCard({ value }) {
+  const [hovered, setHovered] = useState(false);
 
-                                {/* Value 3 */}
-                                <VStack
-                                    bg={{ base: "white", _dark: "gray.800" }}
-                                    p={8}
-                                    rounded="xl"
-                                    shadow="sm"
-                                    align="start"
-                                    spacing={4}
-                                >
-                                    <Box p={3} bg="green.100" color="green.500" rounded="lg">
-                                        <Icon as={FaHandsHelping} boxSize={6} />
-                                    </Box>
-                                    <Heading size="md" color={{ base: "gray.900", _dark: "white" }}>Shared Growth</Heading>
-                                    <Text color={{ base: "gray.600", _dark: "gray.400" }}>
-                                        Your "Lesson Learned" might save someone else from making the same mistake. We grow together.
-                                    </Text>
-                                </VStack>
-                            </SimpleGrid>
-                        </VStack>
-                    </Container>
-                </Box>
-
-                {/* 4. Creator Section */}
-                <Container maxW="4xl" py={{ base: 16, md: 24 }} textAlign="center">
-                    <Heading size="lg" mb={8} color={{ base: "gray.900", _dark: "white" }}>
-                        Meet the Creator
-                    </Heading>
-                    <Box
-                        bg={{ base: "white", _dark: "gray.800" }}
-                        p={8}
-                        rounded="2xl"
-                        border="1px solid"
-                        borderColor={{ base: "gray.100", _dark: "gray.700" }}
-                    >
-                        <Flex direction="column" align="center" gap={4}>
-                            <Image
-                                src="https://api.dicebear.com/9.x/avataaars/svg?seed=Leke"
-                                alt="Leke Avatar"
-                                boxSize="100px"
-                                rounded="full"
-                                bg="blue.100"
-                            />
-                            <Heading size="md" color={{ base: "gray.900", _dark: "white" }}>Leke</Heading>
-                            <Text fontSize="sm" color="blue.500" fontWeight="bold">TheInfoGuy</Text>
-                            <Text color={{ base: "gray.600", _dark: "gray.400" }} maxW="lg">
-                                "I started this platform because I believe that information isn't just about facts—it's about emotional intelligence. Learning how to navigate our feelings is the most important information we can share."
-                            </Text>
-                        </Flex>
-                    </Box>
-                </Container>
-
-                {/* 5. CTA */}
-                <Box py={20} bg="blue.600" textAlign="center">
-                    <Container maxW="3xl">
-                        <Heading color="white" mb={6}>Ready to be part of the story?</Heading>
-                        <Button
-                            size="lg"
-                            bg="white"
-                            color="blue.600"
-                            _hover={{ bg: "blue.50" }}
-                            as="a"
-                            href="/write"
-                            gap={2}
-                        >
-                            Share Your First Story <FaArrowRight />
-                        </Button>
-                    </Container>
-                </Box>
-
-            </Box>
-        </>
-    );
-} ``
+  return (
+    <MotionBox
+      bg="white"
+      p={8}
+      borderRadius="xl"
+      border="1px solid"
+      borderColor="gray.100"
+      h="full"
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      whileHover={{ y: -8 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 18 }}
+      style={{
+        boxShadow: hovered
+          ? '0 20px 36px rgba(255,0,54,0.14)'
+          : '0 2px 8px rgba(0,0,0,0.04)',
+      }}
+    >
+      <MotionFlex
+        w={12}
+        h={12}
+        bg="#ff003615"
+        color="#ff0036"
+        borderRadius="lg"
+        align="center"
+        justify="center"
+        mb={6}
+        animate={{ rotate: hovered ? -8 : 0, scale: hovered ? 1.08 : 1 }}
+        transition={{ duration: 0.35 }}
+      >
+        <Icon as={value.icon} boxSize={5} />
+      </MotionFlex>
+      <Heading as="h3" size="md" mb={3} color="gray.900">
+        {value.title}
+      </Heading>
+      <Text color="gray.600" lineHeight="1.6">
+        {value.description}
+      </Text>
+    </MotionBox>
+  );
+}

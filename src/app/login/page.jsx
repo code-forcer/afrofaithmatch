@@ -40,17 +40,17 @@ export default function LoginPage() {
   };
 
   return (
-    <Box bg={{ base: "gray.50", _dark: "gray.900" }} minH="100vh" py={{ base: 10, md: 20 }}>
+    <Box bg="gray.50" minH="100vh" py={{ base: 10, md: 20 }}>
       <Container maxW="md">
-        <VStack spacing={8}>
+        <VStack gap={8}>
 
           {/* Header */}
-          <VStack spacing={2} textAlign="center">
-            <Heading size="xl" color={{ base: "gray.800", _dark: "white" }}>
+          <VStack gap={2} textAlign="center">
+            <Heading size="xl" color="gray.800">
               Welcome Back
             </Heading>
-            <Text color={{ base: "gray.600", _dark: "gray.400" }}>
-              Log in to share your stories and connect with others.
+            <Text color="gray.600">
+              Log in to connect with Christian singles globally.
             </Text>
           </VStack>
 
@@ -59,14 +59,14 @@ export default function LoginPage() {
             as="form"
             onSubmit={handleSubmit}
             w="full"
-            bg={{ base: "white", _dark: "gray.800" }}
+            bg="white"
             p={{ base: 6, md: 8 }}
             rounded="2xl"
             shadow="lg"
             border="1px solid"
-            borderColor={{ base: "gray.100", _dark: "gray.700" }}
+            borderColor="gray.100"
           >
-            <VStack spacing={5}>
+            <VStack gap={5}>
 
               {/* Error */}
               {error && (
@@ -77,26 +77,29 @@ export default function LoginPage() {
 
               {/* Email */}
               <Box w="full">
-                <Text mb={2} fontWeight="medium" fontSize="sm" color={{ base: "gray.700", _dark: "gray.300" }}>
+                <Text mb={2} fontWeight="medium" fontSize="sm" color="gray.700">
                   Email Address
                 </Text>
                 <Flex
                   align="center"
-                  bg={{ base: "gray.50", _dark: "gray.700" }}
+                  w="full"
+                  bg="gray.50"
                   rounded="lg"
                   border="1px solid"
-                  borderColor={{ base: "gray.200", _dark: "gray.600" }}
-                  _focusWithin={{ borderColor: "blue.400" }}
+                  borderColor="gray.200"
+                  _focusWithin={{ borderColor: "#ff0036" }}
                   transition="all 0.2s"
                 >
-                  <Box pl={4} color="gray.400"><FaEnvelope /></Box>
+                  <Box pl={4} pr={2} color="gray.400"><FaEnvelope /></Box>
                   <Input
                     type="email"
                     placeholder="you@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     border="none"
-                    _focus={{ boxShadow: "none" }}
+                    bg="transparent"
+                    flex={1}
+                    _focus={{ boxShadow: "none", outline: "none" }}
                     required
                   />
                 </Flex>
@@ -104,26 +107,29 @@ export default function LoginPage() {
 
               {/* Password */}
               <Box w="full">
-                <Text mb={2} fontWeight="medium" fontSize="sm" color={{ base: "gray.700", _dark: "gray.300" }}>
+                <Text mb={2} fontWeight="medium" fontSize="sm" color="gray.700">
                   Password
                 </Text>
                 <Flex
                   align="center"
-                  bg={{ base: "gray.50", _dark: "gray.700" }}
+                  w="full"
+                  bg="gray.50"
                   rounded="lg"
                   border="1px solid"
-                  borderColor={{ base: "gray.200", _dark: "gray.600" }}
-                  _focusWithin={{ borderColor: "blue.400" }}
+                  borderColor="gray.200"
+                  _focusWithin={{ borderColor: "#ff0036" }}
                   transition="all 0.2s"
                 >
-                  <Box pl={4} color="gray.400"><FaLock /></Box>
+                  <Box pl={4} pr={2} color="gray.400"><FaLock /></Box>
                   <Input
                     type="password"
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     border="none"
-                    _focus={{ boxShadow: "none" }}
+                    bg="transparent"
+                    flex={1}
+                    _focus={{ boxShadow: "none", outline: "none" }}
                     required
                   />
                 </Flex>
@@ -134,9 +140,9 @@ export default function LoginPage() {
                 type="submit"
                 w="full"
                 size="lg"
-                bg="blue.500"
+                bg="#ff0036"
                 color="white"
-                _hover={{ bg: "blue.600", transform: "translateY(-1px)" }}
+                _hover={{ bg: "#d4002d", transform: "translateY(-1px)" }}
                 transition="all 0.2s"
                 py={7}
                 disabled={loading}
@@ -146,12 +152,12 @@ export default function LoginPage() {
               </Button>
 
               {/* Register Link */}
-              <Text fontSize="sm" color={{ base: "gray.600", _dark: "gray.400" }}>
+              <Text fontSize="sm" color="gray.600">
                 Don't have an account?{" "}
                 <Box
                   as="a"
                   href="/register"
-                  color="blue.500"
+                  color="#ff0036"
                   fontWeight="bold"
                   _hover={{ textDecoration: "underline" }}
                 >

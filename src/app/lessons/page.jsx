@@ -40,9 +40,9 @@ export default function LessonsPage() {
     <>
       <Box bg={{ base: "gray.50", _dark: "black" }} minH="100vh" py={16}>
         <Container maxW="7xl">
-          <VStack spacing={12}>
+          <VStack gap={12}>
             
-            <VStack textAlign="center" spacing={4}>
+            <VStack textAlign="center" gap={4}>
               <Icon as={FaLightbulb} boxSize={12} color="yellow.400" />
               <Heading size="2xl" color={{ base: "gray.900", _dark: "white" }}>The Wisdom Board</Heading>
               <Text fontSize="xl" color={{ base: "gray.600", _dark: "gray.400" }} maxW="2xl">
@@ -53,7 +53,7 @@ export default function LessonsPage() {
             {/* Loading State */}
             {loading && (
               <Flex justify="center" py={10}>
-                <VStack spacing={4}>
+                <VStack gap={4}>
                   <Spinner size="xl" color="blue.500" />
                   <Text color="gray.500">Loading wisdom...</Text>
                 </VStack>
@@ -71,7 +71,7 @@ export default function LessonsPage() {
 
             {/* Lessons Grid */}
             {!loading && lessons.length > 0 && (
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} w="full">
+              <SimpleGrid columns={{ base: 1, md: 2 }} gap={10} w="full">
                 {lessons.map((lesson) => (
                   <Flex 
                     key={lesson.id}

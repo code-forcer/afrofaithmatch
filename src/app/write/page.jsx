@@ -78,7 +78,7 @@ export default function WritePage() {
     return (
       <Box bg={{ base: "gray.50", _dark: "gray.900" }} minH="100vh" py={{ base: 10, md: 20 }}>
         <Container maxW="3xl">
-          <VStack spacing={6} textAlign="center" py={20}>
+          <VStack gap={6} textAlign="center" py={20}>
             <Icon as={FaCheckCircle} boxSize={16} color="green.400" />
             <Heading size="xl" color={{ base: "gray.800", _dark: "white" }}>
               Story Published! 🎉
@@ -103,10 +103,10 @@ export default function WritePage() {
         py={{ base: 10, md: 20 }}
       >
         <Container maxW="3xl">
-          <VStack spacing={8} align="stretch">
+          <VStack gap={8} align="stretch">
             
             {/* Page Title */}
-            <VStack spacing={2} textAlign="center">
+            <VStack gap={2} textAlign="center">
               <Heading size="xl" color={{ base: "gray.800", _dark: "white" }}>
                 Share Your Story
               </Heading>
@@ -132,7 +132,7 @@ export default function WritePage() {
               border="1px solid"
               borderColor={{ base: "gray.100", _dark: "gray.700" }}
             >
-              <VStack spacing={6}>
+              <VStack gap={6}>
                 
                 {/* Title Input */}
                 <Box w="full">

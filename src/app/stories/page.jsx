@@ -83,7 +83,7 @@ export default function StoriesPage() {
         {/* Page Header */}
         <Box bg={{ base: "blue.50", _dark: "gray.900" }} py={16}>
           <Container maxW="7xl">
-            <VStack spacing={6} align="center" textAlign="center">
+            <VStack gap={6} align="center" textAlign="center">
               <Heading size="2xl" color={{ base: "gray.900", _dark: "white" }}>Real Stories</Heading>
               <Text maxW="2xl" fontSize="xl" color={{ base: "gray.600", _dark: "gray.400" }}>
                 Browse stories from people just like you. Filter by what you need to read today.
@@ -125,7 +125,7 @@ export default function StoriesPage() {
           {/* Loading State */}
           {loading && (
             <Flex justify="center" py={20}>
-              <VStack spacing={4}>
+              <VStack gap={4}>
                 <Spinner size="xl" color="blue.500" />
                 <Text color="gray.500">Loading stories...</Text>
               </VStack>
@@ -156,7 +156,7 @@ export default function StoriesPage() {
           {/* Grid */}
           {!loading && stories.length > 0 && (
             <>
-              <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8} mt={8}>
+              <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={8} mt={8}>
                 {stories.map((story) => (
                   <Box 
                     key={story.id}
