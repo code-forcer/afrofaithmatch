@@ -332,8 +332,33 @@ export async function adminDeleteBlogPost(id) {
   return apiFetch(`/api/admin/blog/${id}`, { method: "DELETE" }, true);
 }
 
-// ─── Health Check ─────────────────────────────────────────────────
+// ─── Stories & Lessons API ──────────────────────────────────────
 
+export async function getStories({ category, page, limit } = {}) {
+  const params = new URLSearchParams();
+  if (category) params.set("category", category);
+  if (page) params.set("page", String(page));
+  if (limit) params.set("limit", String(limit));
+  const query = params.toString();
+  return apiFetch(`/api/stories${query ? `?${query}` : ""}`);
+}
+
+export async function createStory(data) {
+  return apiFetch("/api/stories", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function getLessons({ page, limit } = {}) {
+  const params = new URLSearchParams();
+  if (page) params.set("page", String(page));
+  if (limit) params.set("limit", String(limit));
+  const query = params.toString();
+  return apiFetch(`/api/lessons${query ? `?${query}` : ""}`);
+}
+
+// ─── Health Check ─────────────────────────────────────────────────
 export async function healthCheck() {
   return apiFetch("/api/health");
 }
