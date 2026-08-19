@@ -123,7 +123,7 @@ function FloatingBadge() {
           padding: "8px 18px",
           borderRadius: 999,
           background: "rgba(255,255,255,0.12)",
-          border: "1px solid rgba(255,255,255,0.25)",
+          border: "1px solid rgba(255,255,255,05)",
           backdropFilter: "blur(10px)",
           fontSize: 13,
           fontWeight: 500,
@@ -142,7 +142,7 @@ function FloatingBadge() {
             display: "inline-block",
           }}
         />
-        Join 10,000+ Christian singles finding love
+       ✨ Welcome to AfroFaithMatch
       </motion.div>
     </motion.div>
   );
