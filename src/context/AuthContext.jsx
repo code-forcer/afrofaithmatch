@@ -14,9 +14,8 @@ export function AuthProvider({ children }) {
     const token = getToken();
     if (token) {
       getMe()
-        .then((userData) => setUser(userData))
+        .then((data) => setUser({ ...data.user, profile: data.profile }))
         .catch(() => {
-          // Token is invalid or expired — clear it
           apiLogout();
           setUser(null);
         })

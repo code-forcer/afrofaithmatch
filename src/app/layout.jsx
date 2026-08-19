@@ -2,8 +2,6 @@ import localFont from "next/font/local";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 /* Canela – Serif for headings & emotional weight */
 const canela = localFont({
@@ -47,29 +45,7 @@ export default function RootLayout({ children }) {
         `}
       >
         <Providers>
-          {/* Page Shell */}
-          <div
-            style={{
-              minHeight: "100vh",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Header />
-
-            {/* Main content grows, footer stays grounded */}
-            <main
-              style={{
-                flex: 1,
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              {children}
-            </main>
-
-            <Footer />
-          </div>
+          {children}
         </Providers>
       </body>
     </html>
