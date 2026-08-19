@@ -553,7 +553,7 @@ export default function CTASection() {
               }}
             >
               <img
-                src="https://images.unsplash.com/photo-1614804520306-ecbee1dfd39b?q=80&w=1200&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1614804471619-50084aff54bd?q=80&w=1200&auto=format&fit=crop"
                 alt="A couple who found love through faith"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />

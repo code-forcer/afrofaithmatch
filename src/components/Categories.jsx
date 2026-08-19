@@ -7,7 +7,7 @@ const features = [
   {
     id: 1,
     number: "01",
-    title: "Real People, Bible Verified",
+    title: "Real People, Redeemed by Christ",
     description:
       "Dating is hard enough without wondering if others truly share your faith. That's why on Afro Faith Match, Bible verification isn't a feature, it's required.",
     image:
@@ -254,10 +254,6 @@ export default function Categories() {
             flex-direction: column !important;
             gap: 28px !important;
             margin-bottom: 72px !important;
-          }
-          .afm-feature-image-col {
-            width: 100% !important;
-            flex: none !important;
           }
           .afm-feature-image-col > div:last-child {
             height: 320px !important;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaFacebook,
@@ -100,12 +100,12 @@ export default function Footer() {
   const [subscribed, setSubscribed] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
 
-  // Track scroll for back-to-top visibility
-  if (typeof window !== "undefined") {
-    window.addEventListener("scroll", () => {
-      setShowBackToTop(window.scrollY > 500);
-    });
-  }
+  // Track scroll for back-to-top visibility (registered once, not on every render)
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 500);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -130,6 +130,28 @@ export default function Footer() {
         overflow: "hidden",
       }}
     >
+      {/* Grid rules kept explicit so columns stay inline on desktop instead of wrapping */}
+      <style>{`
+        .afm-footer-grid {
+          display: grid;
+          grid-template-columns: 1.3fr 0.9fr 0.9fr 0.9fr 1fr;
+          gap: 40px;
+          align-items: start;
+        }
+        @media (max-width: 991px) {
+          .afm-footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px 32px;
+          }
+        }
+        @media (max-width: 560px) {
+          .afm-footer-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+        }
+      `}</style>
+
       {/* Animated top gradient strip */}
       <motion.div
         initial={{ scaleX: 0 }}
@@ -364,16 +386,11 @@ export default function Footer() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: "48px 40px",
-            marginBottom: 56,
-            alignItems: "start",
-          }}
+          className="afm-footer-grid"
+          style={{ marginBottom: 56 }}
         >
           {/* Brand Column */}
-          <motion.div variants={itemVariants} style={{ minWidth: 260 }}>
+          <motion.div variants={itemVariants} style={{ minWidth: 0 }}>
             <motion.div
               whileHover={{ scale: 1.02 }}
               style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}
@@ -393,7 +410,7 @@ export default function Footer() {
                   boxShadow: "0 4px 16px rgba(154,0,2,0.25)",
                 }}
               >
-                <FaHeart size={20} color="#FAF8F3" />
+                <img src="/logo/logo.svg" alt="" />
               </motion.div>
               <span
                 style={{
@@ -428,8 +445,8 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  whileHover={{ 
-                    scale: 1.2, 
+                  whileHover={{
+                    scale: 1.2,
                     y: -4,
                     background: color,
                     color: "#fff",
@@ -455,8 +472,8 @@ export default function Footer() {
           </motion.div>
 
           {/* Nav Group Columns */}
-          {navGroups.map((group, gi) => (
-            <motion.div key={group.label} variants={itemVariants}>
+          {navGroups.map((group) => (
+            <motion.div key={group.label} variants={itemVariants} style={{ minWidth: 0 }}>
               <h4
                 style={{
                   fontSize: 12,
@@ -502,8 +519,8 @@ export default function Footer() {
                       transition: "color 0.25s",
                       width: "fit-content",
                     }}
-                    whileHover={{ 
-                      color: "#9a0002", 
+                    whileHover={{
+                      color: "#9a0002",
                       x: 6,
                     }}
                     transition={{ duration: 0.2 }}
@@ -523,7 +540,7 @@ export default function Footer() {
           ))}
 
           {/* Contact Column */}
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} style={{ minWidth: 0 }}>
             <h4
               style={{
                 fontSize: 12,
@@ -572,9 +589,9 @@ export default function Footer() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 + i * 0.1 }}
                   whileHover={{ x: 4 }}
-                  style={{ 
-                    display: "flex", 
-                    alignItems: "flex-start", 
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
                     gap: 12,
                     cursor: href ? "pointer" : "default",
                   }}
@@ -627,8 +644,8 @@ export default function Footer() {
 
             <motion.a
               href="/register"
-              whileHover={{ 
-                scale: 1.03, 
+              whileHover={{
+                scale: 1.03,
                 boxShadow: "0 8px 24px rgba(154,0,2,0.3)",
                 y: -2,
               }}
@@ -697,7 +714,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Afro Faith Match · Where Faith Leads to Meaningful Love
           </p>
           <div style={{ display: "flex", gap: 24 }}>
-            {["Privacy", "Terms", "Cookies"].map((item, i) => (
+            {["Privacy", "Terms", "Cookies"].map((item) => (
               <motion.a
                 key={item}
                 href={`/${item.toLowerCase()}`}

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { FaMapMarkerAlt, FaHeart, FaCheckCircle } from 'react-icons/fa';
 import PageHeader from '@/components/PageHeader';
 import AnimatedSection from '@/components/AnimatedSection';
+
 const MotionBox = motion(Box);
 const MotionImage = motion(Image);
 const MotionFlex = motion(Flex);
@@ -33,7 +34,7 @@ const profiles = [
     name: "Grace K.",
     age: 26,
     location: "Nairobi, Kenya",
-    image: "https://images.unsplash.com/photo-1527203561188-dae1bc1a417f?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1530785602389-07594beb8b73?q=80&w=600&auto=format&fit=crop",
     bio: "Love serving in the community. Seeking a God-fearing man.",
     match: 95,
   },
@@ -172,7 +173,7 @@ function ProfileCard({ profile, index }) {
           </Flex>
         </Box>
 
-        <VStack align="stretch" p={6} gap={3}>
+        <VStack align="stretch" p={6} spacing={3}>
           <Flex justify="space-between" align="center">
             <Heading as="h3" size="md" color="gray.900">
               {profile.name}, {profile.age}

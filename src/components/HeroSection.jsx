@@ -7,11 +7,11 @@ import ParticleBackground from "./ParticleBackground";
 // Rotating background — black couples, mixed moods (romantic, joyful, elegant)
 const BACKGROUND_IMAGES = [
   "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1624228652376-d4faa602b278?q=80&w=2070&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1594425437587-e75c19ebf332?q=80&w=2070&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1619472020200-e0d17642b00c?q=80&w=2070&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1644041852210-4873f99366be?q=80&w=2070&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1614804520306-ecbee1dfd39b?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1614804471619-50084aff54bd?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1522941471521-6ee21ec5cc26?q=80&w=2070&auto=format&fit=crop",
 ];
 
 const SLIDE_DURATION = 6000; // ms per background image
@@ -142,7 +142,7 @@ function FloatingBadge() {
             display: "inline-block",
           }}
         />
-     ✨ Welcome to AfroFaithMatch
+        Join 10,000+ Christian singles finding love
       </motion.div>
     </motion.div>
   );
@@ -425,8 +425,6 @@ export default function HeroSection() {
       </div>
 
       <ScrollCue />
-
-
     </section>
   );
 }
