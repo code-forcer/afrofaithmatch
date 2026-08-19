@@ -59,7 +59,7 @@ export default function Header() {
 
   const navLinks = [
     { name: "Home", href: "/", icon: FaHome },
-    { name: "Browse Christian Profiles", href: "/browse", icon: FaSearch },
+    { name: "Browse Christian Profiles", href: "/community", icon: FaSearch },
     { name: "About Us", href: "/about", icon: FaHeart },
     { name: "Contact", href: "/contact", icon: FaUser },
     { name: "Blog", href: "/blog", icon: FaBlog },
@@ -67,7 +67,7 @@ export default function Header() {
 
   const mobileNavItems = [
     { name: "Home", href: "/", icon: FaHome },
-    { name: "Search", href: "/browse", icon: FaSearch },
+    { name: "Search", href: "/community", icon: FaSearch },
     { name: "Add", href: "/register", icon: FaPlus, isAction: true },
     { name: "Account", href: "/login", icon: FaUser },
     { name: "Blog", href: "/blog", icon: FaBlog },

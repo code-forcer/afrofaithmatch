@@ -148,6 +148,14 @@ export async function getUserProfile(id) {
   return apiFetch(`/api/users/${id}`);
 }
 
+export async function getPublicProfiles(page = 1, limit = 12) {
+  return apiFetch(`/api/users/public/browse?page=${page}&limit=${limit}`);
+}
+
+export async function getPublicUserProfile(id) {
+  return apiFetch(`/api/users/public/${id}`);
+}
+
 export async function updateProfile(data) {
   return apiFetch("/api/users/profile", {
     method: "PUT",

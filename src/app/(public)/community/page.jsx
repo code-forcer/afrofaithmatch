@@ -1,100 +1,222 @@
 "use client";
 
-import {
-  Box,
-  Container,
-  Heading,
-  Text,
-  SimpleGrid,
-  VStack,
-  Button,
-  Icon,
-} from "@chakra-ui/react";
-import { FaHandHoldingHeart, FaShieldAlt, FaUsers, FaDiscord } from "react-icons/fa";
+import { Box, Container, SimpleGrid, VStack, Heading, Text, Flex, Icon, Image, Spinner } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { FaMapMarkerAlt, FaHeart, FaCheckCircle } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import PageHeader from "@/components/PageHeader";
+import AnimatedSection from "@/components/AnimatedSection";
+import { getPublicProfiles } from "@/lib/api";
 
-export default function CommunityPage() {
+const MotionBox = motion(Box);
+const MotionImage = motion(Image);
+const MotionFlex = motion(Flex);
+
+function ProfileCard({ profile, index }) {
+  const router = useRouter();
+  const [hovered, setHovered] = useState(false);
+
+  // Users must login to like/send interest
+  const handleLikeClick = (e) => {
+    e.stopPropagation();
+    router.push("/login?redirect=true&message=Please login to send interests");
+  };
+
+  const handleViewProfile = () => {
+    router.push(`/community/${profile.userId._id}`);
+  };
+
   return (
-    <>
-      <Box bg={{ base: "white", _dark: "black" }} minH="100vh">
-        
-        {/* Hero */}
-        <Box bg="blue.600" py={24} textAlign="center" color="white">
-          <Container maxW="4xl">
-            <Heading size="3xl" mb={6}>Our Community</Heading>
-            <Text fontSize="xl" opacity={0.9}>
-              We are a group of humans trying to figure it out together. 
-              Kindness is our currency.
-            </Text>
-          </Container>
+    <AnimatedSection delay={index * 0.1}>
+      <MotionBox
+        bg="white"
+        borderRadius="2xl"
+        overflow="hidden"
+        boxShadow="lg"
+        position="relative"
+        onHoverStart={() => setHovered(true)}
+        onHoverEnd={() => setHovered(false)}
+        whileHover={{ y: -10 }}
+        transition={{ type: "spring", stiffness: 260, damping: 18 }}
+        style={{
+          boxShadow: hovered
+            ? "0 24px 48px rgba(255,0,54,0.18)"
+            : "0 10px 30px rgba(0,0,0,0.08)",
+        }}
+      >
+        <Box h="300px" w="full" position="relative" overflow="hidden">
+          <MotionImage
+            src={profile.userId?.avatar || `https://ui-avatars.com/api/?name=${profile.userId?.name}&background=ff0036&color=fff&size=200`}
+            alt={profile.userId?.name || "User"}
+            objectFit="cover"
+            w="full"
+            h="full"
+            animate={{ scale: hovered ? 1.09 : 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          />
+
+          {/* Gradient wash for badge legibility */}
+          <Box
+            position="absolute"
+            inset={0}
+            bgGradient="linear(to-t, rgba(0,0,0,0.55) 0%, transparent 45%)"
+            pointerEvents="none"
+          />
+
+          {/* Match percentage badge, springs in */}
+          <MotionFlex
+            initial={{ opacity: 0, scale: 0.7, x: -10 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ delay: 0.2 + index * 0.05, type: "spring", stiffness: 260, damping: 16 }}
+            position="absolute"
+            top={4}
+            left={4}
+            align="center"
+            gap={1.5}
+            bg="rgba(255,255,255,0.9)"
+            backdropFilter="blur(4px)"
+            px={3}
+            py={1}
+            borderRadius="full"
+            fontSize="xs"
+            fontWeight="bold"
+            color="#ff0036"
+          >
+            <Box as="span" w="6px" h="6px" borderRadius="full" bg="#22c55e" />
+            New User
+          </MotionFlex>
+
+          {/* Like button (redirects to login) */}
+          <MotionFlex
+            as="button"
+            onClick={handleLikeClick}
+            position="absolute"
+            top={4}
+            right={4}
+            bg="white"
+            w={10}
+            h={10}
+            borderRadius="full"
+            align="center"
+            justify="center"
+            boxShadow="md"
+            color="#ff0036"
+            cursor="pointer"
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Icon as={FaHeart} />
+          </MotionFlex>
+
+          {/* Verified ribbon */}
+          <Flex
+            position="absolute"
+            bottom={4}
+            left={4}
+            align="center"
+            gap={1.5}
+            fontSize="xs"
+            fontWeight="semibold"
+            color="white"
+            opacity={0.95}
+          >
+            <Icon as={FaCheckCircle} color="#4ade80" boxSize={3} />
+            Verified Member
+          </Flex>
         </Box>
 
-        {/* Guidelines Grid */}
-        <Container maxW="7xl" py={20}>
-          <SimpleGrid columns={{ base: 1, md: 3 }} gap={10}>
-            
-            <VStack 
-              align="flex-start" 
-              p={8} 
-              bg={{ base: "gray.50", _dark: "gray.900" }} 
-              rounded="2xl"
-            >
-              <Icon as={FaShieldAlt} boxSize={8} color="green.500" mb={4} />
-              <Heading size="md" color={{ base: "gray.900", _dark: "white" }}>Safe Space First</Heading>
-              <Text color="gray.500">
-                Zero tolerance for hate speech, bullying, or judgment. This is a place for vulnerability, not attacks.
-              </Text>
-            </VStack>
+        <VStack align="stretch" p={6} spacing={3}>
+          <Flex justify="space-between" align="center">
+            <Heading as="h3" size="md" color="gray.900" truncate>
+              {profile.userId?.name}
+              {profile.dateOfBirth && (
+                <>, {new Date().getFullYear() - new Date(profile.dateOfBirth).getFullYear()}</>
+              )}
+            </Heading>
+          </Flex>
+          <Flex align="center" color="gray.500" fontSize="sm">
+            <Icon as={FaMapMarkerAlt} mr={2} color="#ff0036" flexShrink={0} />
+            <Text truncate>{profile.country || "Global"}</Text>
+          </Flex>
+          <Text color="gray.600" fontSize="sm" lineHeight="1.6" noOfLines={2}>
+            {profile.bio || "This user hasn't written a bio yet."}
+          </Text>
 
-            <VStack 
-              align="flex-start" 
-              p={8} 
-              bg={{ base: "gray.50", _dark: "gray.900" }} 
-              rounded="2xl"
-            >
-              <Icon as={FaHandHoldingHeart} boxSize={8} color="red.500" mb={4} />
-              <Heading size="md" color={{ base: "gray.900", _dark: "white" }}>Empathy over Advice</Heading>
-              <Text color="gray.500">
-                Sometimes people just need to be heard, not fixed. Listen first before offering solutions.
-              </Text>
-            </VStack>
-
-            <VStack 
-              align="flex-start" 
-              p={8} 
-              bg={{ base: "gray.50", _dark: "gray.900" }} 
-              rounded="2xl"
-            >
-              <Icon as={FaUsers} boxSize={8} color="blue.500" mb={4} />
-              <Heading size="md" color={{ base: "gray.900", _dark: "white" }}>You Are Not Alone</Heading>
-              <Text color="gray.500">
-                Whatever you are going through, someone here has felt it too. Connect and heal together.
-              </Text>
-            </VStack>
-
-          </SimpleGrid>
-
-          {/* Discord/Join Section */}
-          <Box 
-            mt={20} 
-            p={12} 
-            bg={{ base: "gray.900", _dark: "gray.800" }} 
-            rounded="3xl" 
-            textAlign="center"
+          <MotionBox
+            as="button"
+            mt={4}
+            w="full"
+            py={3}
+            bg="gray.50"
+            color="#ff0036"
+            fontWeight="bold"
+            borderRadius="xl"
+            border="1px solid"
+            borderColor="gray.100"
+            onClick={handleViewProfile}
+            whileHover={{
+              backgroundColor: "#ff0036",
+              color: "#ffffff",
+              borderColor: "#ff0036",
+              scale: 1.02,
+            }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.2 }}
           >
-            <Heading color="white" mb={4}>Want to chat in real-time?</Heading>
-            <Text color="gray.400" mb={8}>Join our Discord server to chat with others instantly.</Text>
-            <Button 
-              size="lg" 
-              colorScheme="purple" 
-              bg="#5865F2" 
-              _hover={{ bg: "#4752C4" }}
-              leftIcon={<Icon as={FaDiscord} />}
-            >
-              Join the Discord
-            </Button>
-          </Box>
-        </Container>
-      </Box>
-    </>
+            View Profile
+          </MotionBox>
+        </VStack>
+      </MotionBox>
+    </AnimatedSection>
+  );
+}
+
+export default function CommunityPage() {
+  const [profiles, setProfiles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadProfiles();
+  }, []);
+
+  const loadProfiles = async () => {
+    try {
+      setLoading(true);
+      const data = await getPublicProfiles(1, 12);
+      setProfiles(data.profiles || []);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <Box as="main" bg="gray.50" minH="100vh" pb={24}>
+      <PageHeader
+        title="Community Profiles"
+        description="Discover Christian singles globally. Login to match, chat, and connect!"
+      />
+
+      <Container maxW="7xl" mt={12}>
+        {loading ? (
+          <Flex justify="center" py={20}>
+            <Spinner size="xl" color="#ff0036" />
+          </Flex>
+        ) : profiles.length === 0 ? (
+          <Flex justify="center" py={20}>
+            <Text color="gray.500">No public profiles found yet.</Text>
+          </Flex>
+        ) : (
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={10}>
+            {profiles.map((profile, index) => (
+              <ProfileCard key={profile._id} profile={profile} index={index} />
+            ))}
+          </SimpleGrid>
+        )}
+      </Container>
+    </Box>
   );
 }

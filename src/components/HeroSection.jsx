@@ -423,8 +423,6 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
       </div>
-
-      <ScrollCue />
     </section>
   );
 }
