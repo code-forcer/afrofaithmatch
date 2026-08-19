@@ -1,9 +1,10 @@
 "use client";
 
 import { Flex, Box, Text, Icon } from "@chakra-ui/react";
-import { usePathname } from "next/navigation";
-import { FaUserFriends, FaHeart, FaCommentDots, FaUserAlt } from "react-icons/fa";
+import { usePathname, useRouter } from "next/navigation";
+import { FaUserFriends, FaHeart, FaCommentDots, FaUserAlt, FaSignOutAlt } from "react-icons/fa";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 const navItems = [
   { name: "Browse", href: "/browse", icon: FaUserFriends },
@@ -14,6 +15,13 @@ const navItems = [
 
 export default function DashboardBottomNav() {
   const pathname = usePathname();
+  const { logout } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/login");
+  };
 
   return (
     <Flex
@@ -59,6 +67,24 @@ export default function DashboardBottomNav() {
           </Link>
         );
       })}
+
+      {/* Logout Button */}
+      <Flex
+        as="button"
+        direction="column"
+        align="center"
+        justify="center"
+        w="full"
+        h="full"
+        color="gray.400"
+        _hover={{ color: "red.500" }}
+        onClick={handleLogout}
+      >
+        <Icon as={FaSignOutAlt} boxSize={6} mb={1} />
+        <Text fontSize="10px" fontWeight="medium">
+          Sign Out
+        </Text>
+      </Flex>
     </Flex>
   );
 }

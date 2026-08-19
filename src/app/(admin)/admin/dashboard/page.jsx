@@ -231,6 +231,30 @@ export default function AdminDashboard() {
       {/* Main content */}
       <Box flex={1} overflow="auto">
         <Box px={{ base: 4, md: 8 }} py={6}>
+          {/* Mobile Nav */}
+          <Box display={{ base: "block", md: "none" }} mb={6} overflowX="auto" pb={2} css={{ "&::-webkit-scrollbar": { display: "none" } }}>
+            <HStack gap={3}>
+              {NAV_ITEMS.map((item) => (
+                <Button
+                  key={item.key}
+                  size="sm"
+                  bg={activeSection === item.key ? "#ff0036" : "white"}
+                  color={activeSection === item.key ? "white" : "gray.700"}
+                  border="1px solid"
+                  borderColor={activeSection === item.key ? "#ff0036" : "gray.200"}
+                  rounded="full"
+                  px={4}
+                  onClick={() => setActiveSection(item.key)}
+                  flexShrink={0}
+                >
+                  <Box mr={2}>{item.icon}</Box> {item.label}
+                </Button>
+              ))}
+              <Button size="sm" variant="outline" colorScheme="red" rounded="full" onClick={handleLogout} flexShrink={0}>
+                Sign Out
+              </Button>
+            </HStack>
+          </Box>
 
           {/* ── Dashboard ─────────────────────────────────────────── */}
           {activeSection === "dashboard" && (
@@ -257,11 +281,11 @@ export default function AdminDashboard() {
                         src={u.avatar || `https://ui-avatars.com/api/?name=${u.name}&background=ff0036&color=fff&size=36`}
                         w="36px" h="36px" rounded="full" objectFit="cover"
                       />
-                      <Box flex={1}>
-                        <Text fontSize="sm" fontWeight="semibold" color="gray.800">{u.name}</Text>
-                        <Text fontSize="xs" color="gray.400">{u.email}</Text>
+                      <Box flex={1} minW={0}>
+                        <Text fontSize="sm" fontWeight="semibold" color="gray.800" truncate>{u.name}</Text>
+                        <Text fontSize="xs" color="gray.400" truncate>{u.email}</Text>
                       </Box>
-                      {u.isBanned && <Badge colorScheme="red" fontSize="10px">Banned</Badge>}
+                      {u.isBanned && <Badge colorScheme="red" fontSize="10px" flexShrink={0}>Banned</Badge>}
                       <Text fontSize="xs" color="gray.400">
                         {new Date(u.createdAt).toLocaleDateString()}
                       </Text>
