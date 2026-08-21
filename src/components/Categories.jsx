@@ -251,6 +251,9 @@ export default function Categories() {
             gap: 28px !important;
             margin-bottom: 72px !important;
           }
+          .afm-feature-row > div {
+            width: 100%;
+          }
           .afm-feature-image-col > div:last-child {
             height: 320px !important;
           }
