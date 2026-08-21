@@ -42,23 +42,24 @@ export default function DashboardSidebar() {
         {navItems.map((item) => {
           const isActive = pathname.startsWith(item.href);
           return (
-            <Link key={item.name} href={item.href} passHref style={{ display: 'block' }}>
-              <Box
-                display="flex"
-                alignItems="center"
-                px={4}
-                py={3}
-                rounded="lg"
-                color={isActive ? "#ff0036" : "gray.600"}
-                bg={isActive ? "red.50" : "transparent"}
-                fontWeight={isActive ? "bold" : "medium"}
-                _hover={{ bg: isActive ? "red.50" : "gray.50", color: isActive ? "#ff0036" : "gray.900" }}
-                transition="all 0.2s"
-              >
-                <Icon as={item.icon} boxSize={5} mr={4} />
-                <Text>{item.name}</Text>
-              </Box>
-            </Link>
+            <Box
+              as={Link}
+              key={item.name}
+              href={item.href}
+              display="flex"
+              alignItems="center"
+              px={4}
+              py={3}
+              rounded="lg"
+              color={isActive ? "#ff0036" : "gray.600"}
+              bg={isActive ? "red.50" : "transparent"}
+              fontWeight={isActive ? "bold" : "medium"}
+              _hover={{ bg: isActive ? "red.50" : "gray.50", color: isActive ? "#ff0036" : "gray.900" }}
+              transition="all 0.2s"
+            >
+              <Icon as={item.icon} boxSize={5} mr={4} />
+              <Text>{item.name}</Text>
+            </Box>
           );
         })}
       </VStack>

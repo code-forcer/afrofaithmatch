@@ -42,28 +42,29 @@ export default function DashboardBottomNav() {
       {navItems.map((item) => {
         const isActive = pathname.startsWith(item.href);
         return (
-          <Link key={item.name} href={item.href} passHref style={{ display: 'block', flex: 1 }}>
-            <Flex
-              direction="column"
-              align="center"
-              justify="center"
-              w="full"
-              h="full"
-              color={isActive ? "#ff0036" : "gray.400"}
-              _hover={{ color: isActive ? "#ff0036" : "gray.600" }}
-            >
-              <Icon
-                as={item.icon}
-                boxSize={6}
-                mb={1}
-                transform={isActive ? "scale(1.1)" : "none"}
-                transition="all 0.2s"
-              />
-              <Text fontSize="10px" fontWeight={isActive ? "bold" : "medium"}>
-                {item.name}
-              </Text>
-            </Flex>
-          </Link>
+          <Flex
+            as={Link}
+            key={item.name}
+            href={item.href}
+            direction="column"
+            align="center"
+            justify="center"
+            w="full"
+            h="full"
+            color={isActive ? "#ff0036" : "gray.400"}
+            _hover={{ color: isActive ? "#ff0036" : "gray.600" }}
+          >
+            <Icon
+              as={item.icon}
+              boxSize={6}
+              mb={1}
+              transform={isActive ? "scale(1.1)" : "none"}
+              transition="all 0.2s"
+            />
+            <Text fontSize="10px" fontWeight={isActive ? "bold" : "medium"}>
+              {item.name}
+            </Text>
+          </Flex>
         );
       })}
 

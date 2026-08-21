@@ -193,7 +193,7 @@ export default function ProfilePage() {
   );
 
   return (
-    <Box bg="#e6d4ba" minH="100vh" py={{ base: 6, md: 10 }} backgroundImage="url('/noise.png')" backgroundBlendMode="overlay">
+    <Box bg="#e6d4ba" minH="100vh" py={{ base: 6, md: 10 }} backgroundImage="url('/noise.jpeg')" backgroundBlendMode="overlay">
       <Container maxW="4xl">
         <Box bg="white" rounded="2xl" shadow="xl" overflow="hidden">
           

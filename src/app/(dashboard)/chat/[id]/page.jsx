@@ -101,7 +101,23 @@ export default function ChatRoomPage() {
 
     socketRef.current.on("message_received", ({ message, conversationId: convId }) => {
       if (convId === conversationId) {
-        setMessages((prev) => [...prev, message]);
+        setMessages((prev) => {
+          // Prevent adding duplicate real messages
+          if (prev.some(m => m._id === message._id)) return prev;
+
+          // Replace optimistic message if it's from the current user
+          const isOwn = message.sender?._id === user._id || message.sender === user._id;
+          if (isOwn) {
+            const tempIndex = prev.findIndex(m => m._id.toString().startsWith("temp-") && m.text === message.text);
+            if (tempIndex !== -1) {
+              const newArr = [...prev];
+              newArr[tempIndex] = message;
+              return newArr;
+            }
+          }
+
+          return [...prev, message];
+        });
         scrollToBottom();
       }
     });
