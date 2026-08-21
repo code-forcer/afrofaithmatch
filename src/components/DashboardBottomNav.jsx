@@ -42,9 +42,8 @@ export default function DashboardBottomNav() {
       {navItems.map((item) => {
         const isActive = pathname.startsWith(item.href);
         return (
-          <Link key={item.name} href={item.href} passHref legacyBehavior>
+          <Link key={item.name} href={item.href} passHref style={{ display: 'block', flex: 1 }}>
             <Flex
-              as="a"
               direction="column"
               align="center"
               justify="center"

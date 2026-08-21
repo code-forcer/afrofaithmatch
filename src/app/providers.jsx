@@ -9,7 +9,7 @@ export default function Providers({ children }) {
     // FIX: v3 uses 'value={defaultSystem}', not 'theme={theme}'
     <ChakraProvider value={defaultSystem}>
       {/* ThemeProvider is required for Dark Mode to work in v3 */}
-      <ThemeProvider attribute="class" disableTransitionOnChange>
+      <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange>
         <AuthProvider>
           {children}
         </AuthProvider>

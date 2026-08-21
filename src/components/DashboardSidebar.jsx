@@ -42,9 +42,8 @@ export default function DashboardSidebar() {
         {navItems.map((item) => {
           const isActive = pathname.startsWith(item.href);
           return (
-            <Link key={item.name} href={item.href} passHref legacyBehavior>
+            <Link key={item.name} href={item.href} passHref style={{ display: 'block' }}>
               <Box
-                as="a"
                 display="flex"
                 alignItems="center"
                 px={4}

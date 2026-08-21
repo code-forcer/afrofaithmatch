@@ -3,10 +3,9 @@
 import { useState, useEffect } from "react";
 import {
   Box, Container, VStack, HStack, Heading, Text, Input, Button,
-  Textarea, SimpleGrid, Flex, Badge, Image, Spinner,
-  createListCollection,
+  Textarea, SimpleGrid, Flex, Badge, Image, Spinner
 } from "@chakra-ui/react";
-import { FaCamera, FaTrash, FaStar, FaUser, FaCheckCircle } from "react-icons/fa";
+import { FaCamera, FaTrash, FaStar, FaCheckCircle, FaVideo, FaMusic } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/context/AuthContext";
 import { updateProfile, uploadProfilePhoto, deleteProfilePhoto, setMainPhoto } from "@/lib/api";
@@ -15,25 +14,54 @@ import { useRouter } from "next/navigation";
 const MotionBox = motion(Box);
 
 const DENOMINATIONS = [
-  "Catholic", "Baptist", "Anglican", "Pentecostal", "Methodist",
-  "Presbyterian", "Seventh-day Adventist", "Evangelical", "Non-denominational", "Orthodox", "Other",
+  "African Baptist Church", "Assemblies of God Church", "Baptist Church",
+  "Christ Apostolic Church", "Christ Embassy", "Church of God",
+  "Church of God Mission", "Church of God Mission International",
+  "Church of Pentecost", "Deeper Life Church", "Dunamis International Gospel Center",
+  "Evangelistic Association", "Four Square Gospel Church", "Gospel Faith Mission",
+  "Gospel Light International Ministries", "House On The Rock",
+  "International Church of Four Square (USA)", "Kingsway International Christian Centre (KICC)",
+  "Living Faith Church (Winners Chapel)", "Methodist Church",
+  "Mountain of Fire and Miracles Ministries", "Redeemed Christian Church of God",
+  "Salvation Ministries", "Seventh Day Adventist", "The Apostolic Church",
+  "Triumph Christian Center", "Other"
 ];
-const CHURCH_ATTENDANCE = ["Every week", "Few times a month", "Occasionally", "Rarely", "Never"];
-const MARITAL_STATUS = ["Single", "Divorced", "Widowed", "Separated"];
-const RELATION_GOALS = ["Marriage", "Friendship", "Dating", "Not sure yet"];
-const EDUCATION = ["High School", "Some College", "Associate Degree", "Bachelor's Degree", "Master's Degree", "Doctorate", "Trade School", "Other"];
+
+const STEPS = [
+  { id: 1, name: "Basic" },
+  { id: 2, name: "Story" },
+  { id: 3, name: "Details" },
+  { id: 4, name: "Media" },
+  { id: 5, name: "Finish" }
+];
 
 export default function ProfilePage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
+  const [step, setStep] = useState(3); // Start at Details step for now based on context
+
   const [profile, setProfile] = useState({
-    gender: "", dateOfBirth: "", country: "", city: "",
-    denomination: "", churchAttendance: "", maritalStatus: "Single",
-    relationshipGoal: "", bio: "", lookingFor: "", occupation: "",
-    education: "", height: "",
+    gender: "", country: "", city: "",
+    age: "",
+    churchAndDenomination: "",
+    activelyServing: "",
+    favoriteBibleVerse: "",
+    datingForMarriage: "",
+    lifeCommitmentDate: "",
+    christianValues: "",
+    marriedBefore: "",
+    countryOfOriginAndEthnicity: "",
+    openToLongDistance: "",
+    pastorObjection: "",
+    occupation: "",
+    bio: "",
   });
+  
   const [photos, setPhotos] = useState([]);
+  const [videos, setVideos] = useState([]);
+  const [audios, setAudios] = useState([]);
+
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
@@ -42,26 +70,30 @@ export default function ProfilePage() {
     if (!authLoading && !user) router.push("/login");
   }, [user, authLoading, router]);
 
-  // Load existing profile data
   useEffect(() => {
     if (user?.profile) {
       const p = user.profile;
       setProfile({
         gender: p.gender || "",
-        dateOfBirth: p.dateOfBirth ? p.dateOfBirth.split("T")[0] : "",
         country: p.country || "",
         city: p.city || "",
-        denomination: p.denomination || "",
-        churchAttendance: p.churchAttendance || "",
-        maritalStatus: p.maritalStatus || "Single",
-        relationshipGoal: p.relationshipGoal || "",
-        bio: p.bio || "",
-        lookingFor: p.lookingFor || "",
+        age: p.age || "",
+        churchAndDenomination: p.churchAndDenomination || "",
+        activelyServing: p.activelyServing || "",
+        favoriteBibleVerse: p.favoriteBibleVerse || "",
+        datingForMarriage: p.datingForMarriage || "",
+        lifeCommitmentDate: p.lifeCommitmentDate || "",
+        christianValues: p.christianValues || "",
+        marriedBefore: p.marriedBefore || "",
+        countryOfOriginAndEthnicity: p.countryOfOriginAndEthnicity || "",
+        openToLongDistance: p.openToLongDistance || "",
+        pastorObjection: p.pastorObjection || "",
         occupation: p.occupation || "",
-        education: p.education || "",
-        height: p.height || "",
+        bio: p.bio || "",
       });
       setPhotos(p.photos || []);
+      setVideos(p.videos || []);
+      setAudios(p.audios || []);
     }
   }, [user]);
 
@@ -105,15 +137,6 @@ export default function ProfilePage() {
     }
   };
 
-  const handleSetMain = async (photoId) => {
-    try {
-      await setMainPhoto(photoId);
-      setPhotos((prev) => prev.map((p) => ({ ...p, isMain: p._id === photoId })));
-    } catch (err) {
-      setMessage({ type: "error", text: "Failed to set main photo." });
-    }
-  };
-
   if (authLoading) {
     return (
       <Flex minH="100vh" align="center" justify="center">
@@ -122,271 +145,217 @@ export default function ProfilePage() {
     );
   }
 
+  const renderField = (label, field, type="text", options=null, placeholder="") => (
+    <Box>
+      <Text mb={1.5} fontSize="sm" fontWeight="semibold" color="gray.700">{label}</Text>
+      {options ? (
+        <Box
+          as="select"
+          value={profile[field]}
+          onChange={handleChange(field)}
+          bg="#F7FAFC"
+          border="1px solid #E2E8F0"
+          _focus={{ borderColor: "#ff0036", boxShadow: "none" }}
+          fontSize="14px"
+          color={profile[field] ? "#1a202c" : "#a0aec0"}
+          w="full"
+          h="40px"
+          px={3}
+          rounded="md"
+        >
+          <option value="">Select option...</option>
+          {options.map((opt) => (
+            <option key={opt} value={opt}>{opt}</option>
+          ))}
+        </Box>
+      ) : type === "textarea" ? (
+        <Textarea
+          value={profile[field]}
+          onChange={handleChange(field)}
+          placeholder={placeholder}
+          bg="#F7FAFC"
+          border="1px solid #E2E8F0"
+          _focus={{ borderColor: "#ff0036", boxShadow: "none" }}
+          rows={3}
+        />
+      ) : (
+        <Input
+          type={type}
+          value={profile[field]}
+          onChange={handleChange(field)}
+          placeholder={placeholder}
+          bg="#F7FAFC"
+          border="1px solid #E2E8F0"
+          _focus={{ borderColor: "#ff0036", boxShadow: "none" }}
+        />
+      )}
+    </Box>
+  );
+
   return (
-    <Box bg="gray.50" minH="100vh" py={{ base: 8, md: 16 }}>
-      <Container maxW="3xl">
-        <VStack gap={8} align="stretch">
+    <Box bg="#e6d4ba" minH="100vh" py={{ base: 6, md: 10 }} backgroundImage="url('/noise.png')" backgroundBlendMode="overlay">
+      <Container maxW="4xl">
+        <Box bg="white" rounded="2xl" shadow="xl" overflow="hidden">
+          
+          <Box p={8} bg="#fdfaf3">
+            <AnimatePresence mode="wait">
+              {step === 1 && (
+                <MotionBox key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                  <Heading size="lg" mb={6} color="gray.800">Basic Info</Heading>
+                  <SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
+                    {renderField("Gender", "gender", "text", ["Male", "Female", "Prefer not to say"])}
+                    {renderField("Country", "country")}
+                    {renderField("City", "city")}
+                  </SimpleGrid>
+                </MotionBox>
+              )}
 
-          {/* Header */}
-          <MotionBox
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Heading size="xl" color="gray.800">Edit Your Profile</Heading>
-            <Text color="gray.500" mt={1}>
-              Complete your profile so others can find and connect with you.
-            </Text>
-          </MotionBox>
+              {step === 2 && (
+                <MotionBox key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                  <Heading size="lg" mb={6} color="gray.800">Story</Heading>
+                  <SimpleGrid columns={1} gap={6}>
+                    {renderField("About Me", "bio", "textarea")}
+                  </SimpleGrid>
+                </MotionBox>
+              )}
 
-          {/* Status Message */}
-          <AnimatePresence>
-            {message.text && (
-              <MotionBox
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                p={4}
-                bg={message.type === "success" ? "green.50" : "red.50"}
-                color={message.type === "success" ? "green.700" : "red.600"}
-                rounded="lg"
-                fontWeight="medium"
-              >
-                {message.text}
-              </MotionBox>
-            )}
-          </AnimatePresence>
+              {step === 3 && (
+                <MotionBox key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                  <Heading size="lg" mb={6} color="gray.800" borderBottom="1px solid" borderColor="gray.200" pb={3}>About Me</Heading>
+                  <SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
+                    {renderField("Age", "age", "number", Array.from({length: 60}, (_, i) => i + 18))}
+                    {renderField("When did you commit your life to Christ? *", "lifeCommitmentDate", "text", ["Childhood", "Teenage years", "Adulthood", "Recently"])}
+                    
+                    {renderField("What is the name of your church and denomination? *", "churchAndDenomination", "text", DENOMINATIONS)}
+                    {renderField("What Christian values matter most to you in marriage? *", "christianValues", "text", ["Faithfulness", "Prayer", "Service", "Biblical Submission/Leadership", "Grace and Forgiveness", "Other"])}
+                    
+                    {renderField("Are you actively serving in church? If yes, in what capacity? *", "activelyServing", "text", ["Not currently serving", "Choir/Worship Team", "Usher/Greeter", "Youth/Children Ministry", "Media/Tech Team", "Prayer/Intercessory Team", "Leadership/Pastoral", "Other"])}
+                    {renderField("Favorite Bible verse and why? *", "favoriteBibleVerse", "textarea")}
 
-          {/* Photos Section */}
-          <Box bg="white" rounded="2xl" shadow="sm" p={6} border="1px solid" borderColor="gray.100">
-            <Heading size="md" color="gray.800" mb={4}>
-              Profile Photos
-            </Heading>
-            <SimpleGrid columns={{ base: 2, sm: 3, md: 4 }} gap={3} mb={4}>
-              {photos.map((photo) => (
-                <Box key={photo._id} position="relative" rounded="xl" overflow="hidden" h="120px">
-                  <Image src={photo.url} alt="Profile photo" w="full" h="full" objectFit="cover" />
-                  {photo.isMain && (
-                    <Badge position="absolute" top={1} left={1} bg="#ff0036" color="white" fontSize="9px" px={1.5} py={0.5} rounded="sm">
-                      MAIN
-                    </Badge>
+                    {renderField("Are you dating for marriage? *", "datingForMarriage", "text", ["Yes", "No", "Not sure yet"])}
+                    {renderField("Have you ever been married before? *", "marriedBefore", "text", ["No, never married", "Yes, divorced", "Yes, widowed", "Yes, annulled", "Separated"])}
+
+                    {renderField("Country of origin and tribe/ethnicity (optional)", "countryOfOriginAndEthnicity")}
+                    {renderField("Current Occupation? *", "occupation")}
+
+                    {renderField("Open to long-distance courtship? *", "openToLongDistance", "text", ["Yes", "No", "Depends on the distance", "Open to relocating"])}
+                    {renderField("Would you have objection if at some point our pastors are involved? *", "pastorObjection", "text", ["No objection", "I prefer to wait until engagement", "Yes, I would object"])}
+                  </SimpleGrid>
+                </MotionBox>
+              )}
+
+              {step === 4 && (
+                <MotionBox key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                  <Heading size="lg" mb={6} color="gray.800">Media</Heading>
+                  <VStack align="stretch" spacing={8} gap={8}>
+                    
+                    {/* Photos */}
+                    <Box>
+                      <Flex justify="space-between" align="center" borderBottom="1px solid" borderColor="gray.300" pb={2} mb={4}>
+                        <Text fontWeight="bold" color="gray.700">My Photos</Text>
+                        <Text color="gray.500" fontSize="sm">{photos.length} / 10</Text>
+                      </Flex>
+                      <SimpleGrid columns={{ base: 2, sm: 3, md: 4 }} gap={4}>
+                        {photos.map((photo) => (
+                          <Box key={photo._id} position="relative" rounded="lg" overflow="hidden" h="120px">
+                            <Image src={photo.url} alt="Profile photo" w="full" h="full" objectFit="cover" />
+                            <Button size="xs" position="absolute" bottom={1} right={1} bg="red.500" color="white" onClick={() => handleDeletePhoto(photo._id)} p={1} minW="auto">
+                              <FaTrash />
+                            </Button>
+                          </Box>
+                        ))}
+                        {photos.length < 10 && (
+                          <Box as="label" h="120px" border="2px dashed" borderColor="gray.300" rounded="lg" display="flex" flexDirection="column" alignItems="center" justifyContent="center" cursor="pointer" _hover={{ bg: "gray.100" }}>
+                            {uploading ? <Spinner size="sm" /> : <><FaCamera color="gray.400" /><Text fontSize="xs" mt={2} color="gray.500">add new</Text></>}
+                            <Input type="file" accept="image/*" display="none" onChange={handlePhotoUpload} disabled={uploading} />
+                          </Box>
+                        )}
+                      </SimpleGrid>
+                    </Box>
+
+                    {/* Videos */}
+                    <Box>
+                      <Flex justify="space-between" align="center" borderBottom="1px solid" borderColor="gray.300" pb={2} mb={4}>
+                        <Text fontWeight="bold" color="gray.700">My Videos</Text>
+                        <Text color="gray.500" fontSize="sm">{videos.length} / 10</Text>
+                      </Flex>
+                      <SimpleGrid columns={{ base: 2, sm: 3, md: 4 }} gap={4}>
+                        {videos.length < 10 && (
+                          <Box as="label" h="120px" border="2px dashed" borderColor="gray.300" rounded="lg" display="flex" flexDirection="column" alignItems="center" justifyContent="center" cursor="pointer" _hover={{ bg: "gray.100" }}>
+                            <FaVideo color="gray.400" />
+                            <Text fontSize="xs" mt={2} color="gray.500">add new</Text>
+                            <Input type="file" accept="video/*" display="none" disabled={true} />
+                          </Box>
+                        )}
+                      </SimpleGrid>
+                    </Box>
+
+                    {/* Audios */}
+                    <Box>
+                      <Flex justify="space-between" align="center" borderBottom="1px solid" borderColor="gray.300" pb={2} mb={4}>
+                        <Text fontWeight="bold" color="gray.700">My Audio Files</Text>
+                        <Text color="gray.500" fontSize="sm">{audios.length} / 10</Text>
+                      </Flex>
+                      <SimpleGrid columns={{ base: 2, sm: 3, md: 4 }} gap={4}>
+                        {audios.length < 10 && (
+                          <Box as="label" h="120px" border="2px dashed" borderColor="gray.300" rounded="lg" display="flex" flexDirection="column" alignItems="center" justifyContent="center" cursor="pointer" _hover={{ bg: "gray.100" }}>
+                            <FaMusic color="gray.400" />
+                            <Text fontSize="xs" mt={2} color="gray.500">add new</Text>
+                            <Input type="file" accept="audio/*" display="none" disabled={true} />
+                          </Box>
+                        )}
+                      </SimpleGrid>
+                    </Box>
+
+                  </VStack>
+                </MotionBox>
+              )}
+
+              {step === 5 && (
+                <MotionBox key="step5" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} textAlign="center" py={10}>
+                  <Heading size="lg" mb={4} color="gray.800">Finish</Heading>
+                  <Text color="gray.600" mb={8}>You're all set! Review your details and save your profile.</Text>
+                  
+                  {message.text && (
+                    <Box p={4} mb={6} bg={message.type === "success" ? "green.50" : "red.50"} color={message.type === "success" ? "green.700" : "red.600"} rounded="lg" fontWeight="medium">
+                      {message.text}
+                    </Box>
                   )}
-                  <Flex position="absolute" bottom={0} left={0} right={0} bg="rgba(0,0,0,0.5)" p={1} gap={1}>
-                    {!photo.isMain && (
-                      <Button size="xs" bg="yellow.400" color="white" onClick={() => handleSetMain(photo._id)} p={1} minW="auto">
-                        <FaStar />
-                      </Button>
-                    )}
-                    <Button size="xs" bg="red.500" color="white" onClick={() => handleDeletePhoto(photo._id)} p={1} minW="auto">
-                      <FaTrash />
-                    </Button>
-                  </Flex>
-                </Box>
-              ))}
 
-              {/* Upload button */}
-              <Box
-                as="label"
-                htmlFor="photo-upload"
-                h="120px"
-                border="2px dashed"
-                borderColor={uploading ? "#ff0036" : "gray.200"}
-                rounded="xl"
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                justifyContent="center"
-                cursor={uploading ? "wait" : "pointer"}
-                _hover={{ borderColor: "#ff0036", bg: "red.50" }}
-                transition="all 0.2s"
-              >
-                {uploading ? (
-                  <Spinner size="sm" color="#ff0036" />
-                ) : (
-                  <>
-                    <Box color="gray.400" mb={1}><FaCamera /></Box>
-                    <Text fontSize="xs" color="gray.400">Add Photo</Text>
-                  </>
-                )}
-                <Input
-                  id="photo-upload"
-                  type="file"
-                  accept="image/*"
-                  display="none"
-                  onChange={handlePhotoUpload}
-                  disabled={uploading}
-                />
-              </Box>
-            </SimpleGrid>
-            <Text fontSize="xs" color="gray.400">Upload up to 6 photos. Click the ★ to set your main photo.</Text>
+                  <Button size="lg" bg="#ff0036" color="white" onClick={handleSave} loading={saving} loadingText="Saving..." _hover={{ bg: "#d4002d" }} px={10} py={7} rounded="full">
+                    <Flex align="center" gap={2}><FaCheckCircle /> Save Profile</Flex>
+                  </Button>
+                </MotionBox>
+              )}
+            </AnimatePresence>
           </Box>
 
-          {/* Personal Info */}
-          <Box bg="white" rounded="2xl" shadow="sm" p={6} border="1px solid" borderColor="gray.100">
-            <Heading size="md" color="gray.800" mb={5}>Personal Details</Heading>
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap={5}>
-
-              <Box>
-                <Text mb={1.5} fontSize="sm" fontWeight="medium" color="gray.700">Gender</Text>
-                <select
-                  value={profile.gender}
-                  onChange={handleChange("gender")}
-                  style={{
-                    width: "100%",
-                    padding: "10px 12px",
-                    borderRadius: "8px",
-                    border: "1px solid #E2E8F0",
-                    background: "#F7FAFC",
-                    fontSize: "14px",
-                    color: profile.gender ? "#1a202c" : "#a0aec0",
-                    outline: "none",
-                  }}
-                >
-                  <option value="">Select gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="prefer_not_to_say">Prefer not to say</option>
-                </select>
-              </Box>
-
-              <Box>
-                <Text mb={1.5} fontSize="sm" fontWeight="medium" color="gray.700">Date of Birth</Text>
-                <Input
-                  type="date"
-                  value={profile.dateOfBirth}
-                  onChange={handleChange("dateOfBirth")}
-                  border="1px solid" borderColor="gray.200" rounded="lg" bg="gray.50"
-                  _focus={{ borderColor: "#ff0036", boxShadow: "none" }}
-                />
-              </Box>
-
-              <Box>
-                <Text mb={1.5} fontSize="sm" fontWeight="medium" color="gray.700">Country</Text>
-                <Input
-                  placeholder="e.g. Nigeria"
-                  value={profile.country}
-                  onChange={handleChange("country")}
-                  border="1px solid" borderColor="gray.200" rounded="lg" bg="gray.50"
-                  _focus={{ borderColor: "#ff0036", boxShadow: "none" }}
-                />
-              </Box>
-
-              <Box>
-                <Text mb={1.5} fontSize="sm" fontWeight="medium" color="gray.700">City</Text>
-                <Input
-                  placeholder="e.g. Lagos"
-                  value={profile.city}
-                  onChange={handleChange("city")}
-                  border="1px solid" borderColor="gray.200" rounded="lg" bg="gray.50"
-                  _focus={{ borderColor: "#ff0036", boxShadow: "none" }}
-                />
-              </Box>
-
-              <Box>
-                <Text mb={1.5} fontSize="sm" fontWeight="medium" color="gray.700">Occupation</Text>
-                <Input
-                  placeholder="e.g. Engineer"
-                  value={profile.occupation}
-                  onChange={handleChange("occupation")}
-                  border="1px solid" borderColor="gray.200" rounded="lg" bg="gray.50"
-                  _focus={{ borderColor: "#ff0036", boxShadow: "none" }}
-                />
-              </Box>
-
-              <Box>
-                <Text mb={1.5} fontSize="sm" fontWeight="medium" color="gray.700">Height</Text>
-                <Input
-                  placeholder="e.g. 5'9"
-                  value={profile.height}
-                  onChange={handleChange("height")}
-                  border="1px solid" borderColor="gray.200" rounded="lg" bg="gray.50"
-                  _focus={{ borderColor: "#ff0036", boxShadow: "none" }}
-                />
-              </Box>
-            </SimpleGrid>
-
-            <Box mt={5}>
-              <Text mb={1.5} fontSize="sm" fontWeight="medium" color="gray.700">About Me</Text>
-              <Textarea
-                placeholder="Share a bit about yourself, your faith journey, and what you're looking for..."
-                value={profile.bio}
-                onChange={handleChange("bio")}
-                rows={4}
-                border="1px solid" borderColor="gray.200" rounded="lg" bg="gray.50"
-                _focus={{ borderColor: "#ff0036", boxShadow: "none" }}
-                resize="vertical"
-                maxLength={500}
-              />
-              <Text fontSize="xs" color="gray.400" textAlign="right">{profile.bio.length}/500</Text>
-            </Box>
-          </Box>
-
-          {/* Faith Details */}
-          <Box bg="white" rounded="2xl" shadow="sm" p={6} border="1px solid" borderColor="gray.100">
-            <Heading size="md" color="gray.800" mb={5}>
-              <Flex align="center" gap={2}>
-                <Box color="#ff0036">✝</Box> Faith & Relationship
-              </Flex>
-            </Heading>
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap={5}>
-
-              {[
-                { label: "Denomination", field: "denomination", options: DENOMINATIONS },
-                { label: "Church Attendance", field: "churchAttendance", options: CHURCH_ATTENDANCE },
-                { label: "Marital Status", field: "maritalStatus", options: MARITAL_STATUS },
-                { label: "Relationship Goal", field: "relationshipGoal", options: RELATION_GOALS },
-                { label: "Looking For", field: "lookingFor", options: [["male", "Men"], ["female", "Women"], ["both", "Both"]] },
-                { label: "Education", field: "education", options: EDUCATION },
-              ].map(({ label, field, options }) => (
-                <Box key={field}>
-                  <Text mb={1.5} fontSize="sm" fontWeight="medium" color="gray.700">{label}</Text>
-                  <select
-                    value={profile[field]}
-                    onChange={handleChange(field)}
-                    style={{
-                      width: "100%",
-                      padding: "10px 12px",
-                      borderRadius: "8px",
-                      border: "1px solid #E2E8F0",
-                      background: "#F7FAFC",
-                      fontSize: "14px",
-                      color: profile[field] ? "#1a202c" : "#a0aec0",
-                      outline: "none",
-                    }}
-                  >
-                    <option value="">Select {label}</option>
-                    {options.map((opt) =>
-                      Array.isArray(opt) ? (
-                        <option key={opt[0]} value={opt[0]}>{opt[1]}</option>
-                      ) : (
-                        <option key={opt} value={opt}>{opt}</option>
-                      )
-                    )}
-                  </select>
-                </Box>
-              ))}
-            </SimpleGrid>
-          </Box>
-
-          {/* Save Button */}
-          <Button
-            size="lg"
-            bg="#ff0036"
-            color="white"
-            onClick={handleSave}
-            loading={saving}
-            loadingText="Saving..."
-            _hover={{ bg: "#d4002d", transform: "translateY(-1px)" }}
-            transition="all 0.2s"
-            py={7}
-            shadow="md"
-          >
-            <Flex align="center" gap={2}>
-              <FaCheckCircle /> Save Profile
+          {/* Navigation & Stepper */}
+          <Box p={6} bg="gray.50" borderTop="1px solid" borderColor="gray.200">
+            <Flex justify="space-between" align="center" mb={6}>
+              <Button variant="ghost" onClick={() => setStep(s => Math.max(1, s - 1))} isDisabled={step === 1} color="gray.600">
+                &larr; Back
+              </Button>
+              <Button variant="ghost" onClick={() => setStep(s => Math.min(5, s + 1))} isDisabled={step === 5} color="gray.600" fontWeight="bold">
+                Next &rarr;
+              </Button>
             </Flex>
-          </Button>
 
-        </VStack>
+            <Flex justify="center" gap={{ base: 2, md: 8 }} flexWrap="wrap">
+              {STEPS.map((s) => (
+                <Flex key={s.id} align="center" gap={2} cursor="pointer" onClick={() => setStep(s.id)} opacity={step === s.id ? 1 : 0.5} _hover={{ opacity: 0.8 }} transition="all 0.2s">
+                  <Badge bg={step === s.id ? "gray.700" : "gray.300"} color="white" rounded="full" px={2} py={1}>
+                    0{s.id}
+                  </Badge>
+                  <Text fontSize="sm" fontWeight="bold" color="gray.700" display={{ base: "none", sm: "block" }}>
+                    {s.name}
+                  </Text>
+                </Flex>
+              ))}
+            </Flex>
+          </Box>
+
+        </Box>
       </Container>
     </Box>
   );
