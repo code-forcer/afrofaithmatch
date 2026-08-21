@@ -10,8 +10,7 @@ const features = [
     title: "Real People, Redeemed by Christ",
     description:
       "Dating is hard enough without wondering if others truly share your faith. That's why on Afro Faith Match, Bible verification isn't a feature, it's required.",
-    image:
-      "https://images.unsplash.com/photo-1561406636-b80293969660?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/cat/c1.avif",
   },
   {
     id: 2,
@@ -19,8 +18,7 @@ const features = [
     title: "Unapologetically Christian",
     description:
       "Christians deserve more than just a filter on an app. Specify your denomination, how often you go to church, and answer questions about your faith.",
-    image:
-      "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/cat/c2.avif",
   },
   {
     id: 3,
@@ -28,8 +26,7 @@ const features = [
     title: "Shared Values Make Stronger Relationships",
     description:
       "Define your goals, values, relationship intentions, and more. Choose from over 100 topics to help you connect on things you actually care about.",
-    image:
-      "https://images.unsplash.com/photo-1644041852210-4873f99366be?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/cat/c3.avif",
   },
   {
     id: 4,
@@ -37,8 +34,7 @@ const features = [
     title: "Safety from the Storm",
     description:
       "Using a combination of AI and human-reviewed safety checks, we strive to provide a safe and secure environment before and after you join the app.",
-    image:
-      "https://images.unsplash.com/photo-1506956191951-7a88da4435e5?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/cat/c4.avif",
   },
 ];
 

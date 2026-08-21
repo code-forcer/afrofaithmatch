@@ -6,12 +6,12 @@ import ParticleBackground from "./ParticleBackground";
 
 // Rotating background — black couples, mixed moods (romantic, joyful, elegant)
 const BACKGROUND_IMAGES = [
-  "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1594425437587-e75c19ebf332?q=80&w=2070&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1619472020200-e0d17642b00c?q=80&w=2070&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1644041852210-4873f99366be?q=80&w=2070&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1614804471619-50084aff54bd?q=80&w=2070&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1522941471521-6ee21ec5cc26?q=80&w=2070&auto=format&fit=crop",
+  "/images/heros/h1.avif",
+  "/images/heros/h2.avif",
+  "/images/heros/h3.avif",
+  "/images/heros/h4.avif",
+  "/images/heros/h5.avif",
+  "/images/heros/h6.avif",
 ];
 
 const SLIDE_DURATION = 6000; // ms per background image

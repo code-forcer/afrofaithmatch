@@ -10,32 +10,28 @@ const testimonials = [
     quote:
       "I've tried countless dating apps, but none of them ever felt worth it or real. God definitely used this app to bless me in the best way ever, I recently matched with my future wife on Afro Faith Match! The process was super simple and was very straightforward.",
     name: "Marcus",
-    image:
-      "https://images.unsplash.com/photo-1611731283058-fc6b8773f7e3?q=80&w=300&auto=format&fit=crop",
+    image: "/images/testimonies/marcus.avif",
   },
   {
     id: 2,
     quote:
       "I met somebody - he's 26 hours away, but love doesn't measure. He's the best thing that has ever happened to me, and I can't wait until what God has for our life. Thank you Father God for this wonderful, amazing man that you brought into my life.",
     name: "Aisha",
-    image:
-      "https://images.unsplash.com/photo-1614174669570-037a92241af8?q=80&w=300&auto=format&fit=crop",
+    image: "/images/testimonies/aisha.avif",
   },
   {
     id: 3,
     quote:
       "I met Naomi over the chat feature. I initially didn't hear back, but one day, I got bored and sent a GIF. She responded back, and we started talking, we hit it off! I love her very much, she means more to me than anything this world can give me.",
     name: "James & Naomi",
-    image:
-      "https://images.unsplash.com/photo-1624228652393-eab1721b1899?q=80&w=300&auto=format&fit=crop",
+    image: "/images/testimonies/naomi.avif",
   },
   {
     id: 4,
     quote:
       "From all of the Christian dating apps out there, Afro Faith Match is my favorite so far. Even though I tend to go through very few profiles a day, the ones that I have read seem to be from people who are really intentional in meeting a like minded Christian.",
     name: "Chloe",
-    image:
-      "https://images.unsplash.com/photo-1440367850806-da68da359421?q=80&w=300&auto=format&fit=crop",
+    image: "/images/testimonies/chloe.avif",
   },
 ];
 

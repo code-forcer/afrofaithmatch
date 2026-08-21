@@ -89,7 +89,7 @@ export default function AboutUsPage() {
                 >
                   <Box
                     as="img"
-                    src="https://images.unsplash.com/photo-1614804471619-50084aff54bd?q=80&w=800&auto=format&fit=crop"
+                    src="/images/about/a1.avif"
                     alt="A Christian couple who found each other through shared faith"
                     w="full"
                     h="full"

@@ -14,7 +14,7 @@ const posts = [
     title: "How to Build a Christ-Centered Relationship",
     category: "Relationships",
     date: "August 12, 2026",
-    image: "https://images.unsplash.com/photo-1644041852210-4873f99366be?q=80&w=800&auto=format&fit=crop",
+    image: "/images/blog/b1.avif",
     excerpt: "Building a foundation on faith requires intentionality. Here are 5 practical ways to keep God at the center of your dating life.",
   },
   {
@@ -22,7 +22,7 @@ const posts = [
     title: "Navigating Online Dating as a Christian",
     category: "Online Dating",
     date: "August 5, 2026",
-    image: "https://images.unsplash.com/photo-1614174669570-037a92241af8?q=80&w=800&auto=format&fit=crop",
+    image: "/images/blog/b2.avif",
     excerpt: "Online dating can be overwhelming, but it doesn't have to compromise your values. Learn how to navigate the digital dating landscape faithfully.",
   },
   {
@@ -30,7 +30,7 @@ const posts = [
     title: "The Importance of Shared Values in Marriage",
     category: "Marriage",
     date: "July 28, 2026",
-    image: "https://images.unsplash.com/photo-1614804471619-50084aff54bd?q=80&w=800&auto=format&fit=crop",
+    image: "/images/blog/b3.avif",
     excerpt: "Why being equally yoked goes beyond just checking a box. Understanding the deep significance of shared faith in a lifelong partnership.",
   },
   {
@@ -38,7 +38,7 @@ const posts = [
     title: "Praying for Your Future Spouse",
     category: "Faith",
     date: "July 20, 2026",
-    image: "https://images.unsplash.com/photo-1561406636-b80293969660?q=80&w=800&auto=format&fit=crop",
+    image: "/images/blog/b4.avif",
     excerpt: "Even before you meet them, you can start praying for your future spouse. Discover powerful prayers for the one God has for you.",
   },
   {
@@ -46,7 +46,7 @@ const posts = [
     title: "Red Flags vs. Grace: Discerning When to Walk Away",
     category: "Dating Advice",
     date: "July 15, 2026",
-    image: "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?q=80&w=800&auto=format&fit=crop",
+    image: "/images/blog/b5.avif",
     excerpt: "As Christians we are called to give grace, but we also need wisdom. How to tell the difference between a flaw and a toxic red flag.",
   },
   {
@@ -54,7 +54,7 @@ const posts = [
     title: "Success Story: How Marcus and Aisha Met",
     category: "Success Stories",
     date: "July 8, 2026",
-    image: "https://images.unsplash.com/photo-1522941471521-6ee21ec5cc26?q=80&w=800&auto=format&fit=crop",
+    image: "/images/blog/b6.avif",
     excerpt: "Read the beautiful testimony of how God brought Marcus and Aisha together across borders through Afro Faith Match.",
   }
 ];

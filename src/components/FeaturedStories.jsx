@@ -11,8 +11,7 @@ const profiles = [
     age: 28,
     location: "Atlanta, GA",
     denomination: "Non-Denominational",
-    image:
-      "https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?q=80&w=600&auto=format&fit=crop",
+    image: "/images/features/f1.avif",
   },
   {
     id: 2,
@@ -20,8 +19,7 @@ const profiles = [
     age: 26,
     location: "Dallas, TX",
     denomination: "Baptist",
-    image:
-      "https://images.unsplash.com/photo-1561406636-b80293969660?q=80&w=600&auto=format&fit=crop",
+    image: "/images/features/f2.avif",
   },
   {
     id: 3,
@@ -29,8 +27,7 @@ const profiles = [
     age: 30,
     location: "London, UK",
     denomination: "Pentecostal",
-    image:
-      "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?q=80&w=600&auto=format&fit=crop",
+    image: "/images/features/f3.avif",
   },
   {
     id: 4,
@@ -38,8 +35,7 @@ const profiles = [
     age: 27,
     location: "Lagos, NG",
     denomination: "Anglican",
-    image:
-      "https://images.unsplash.com/photo-1507152832244-10d45c7eda57?q=80&w=600&auto=format&fit=crop",
+    image: "/images/features/f4.avif",
   },
   {
     id: 5,
@@ -47,8 +43,7 @@ const profiles = [
     age: 31,
     location: "Houston, TX",
     denomination: "Methodist",
-    image:
-      "https://images.unsplash.com/photo-1614023342667-6f060e9d1e04?q=80&w=600&auto=format&fit=crop",
+    image: "/images/features/f5.avif",
   },
   {
     id: 6,
@@ -56,8 +51,7 @@ const profiles = [
     age: 25,
     location: "Nairobi, KE",
     denomination: "Non-Denominational",
-    image:
-      "https://images.unsplash.com/photo-1507152927179-bc4ebfef7103?q=80&w=600&auto=format&fit=crop",
+    image: "/images/features/f6.avif",
   },
 ];
 
