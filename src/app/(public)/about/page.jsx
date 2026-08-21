@@ -34,7 +34,7 @@ export default function AboutUsPage() {
   ];
 
   return (
-    <Box as="main" bg="white" minH="100vh">
+    <Box as="main" bg="white" minH="100vh" overflowX="hidden">
       <PageHeader
         title="About Afro Faith Match"
         description="Discover our mission to connect Christian singles globally, grounded in faith and purpose."
