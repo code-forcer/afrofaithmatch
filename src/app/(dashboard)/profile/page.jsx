@@ -239,7 +239,7 @@ export default function ProfilePage() {
                     {renderField("Current Occupation? *", "occupation")}
 
                     {renderField("Open to long-distance courtship? *", "openToLongDistance", "text", ["Yes", "No", "Depends on the distance", "Open to relocating"])}
-                    {renderField("Would you have objection if at some point our pastors are involved? *", "pastorObjection", "text", ["No objection", "I prefer to wait until engagement", "Yes, I would object"])}
+                    {renderField("Would you have an objection if at some point our pastors are involved? *", "pastorObjection", "text", ["No objection", "I prefer to wait until engagement", "Yes, I would object"])}
                   </SimpleGrid>
                 </MotionBox>
               )}

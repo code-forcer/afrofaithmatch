@@ -133,7 +133,7 @@ export default function CTASection() {
             >
               <motion.div style={{ position: "absolute", inset: "-8%", y: imgY }}>
                 <img
-                  src="https://images.unsplash.com/photo-1522941471521-6ee21ec5cc26?q=80&w=1200&auto=format&fit=crop"
+                  src="/images/cta/c2.avif"
                   alt="Members of the Afro Christian community"
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
@@ -553,7 +553,7 @@ export default function CTASection() {
               }}
             >
               <img
-                src="/images/cta/c1.avif"
+                src="/images/cta/c1.jpg"
                 alt="A couple who found love through faith"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />

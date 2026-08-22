@@ -89,7 +89,7 @@ export default function AboutUsPage() {
                 >
                   <Box
                     as="img"
-                    src="/images/about/a1.avif"
+                    src="/images/about/a1.jpg"
                     alt="A Christian couple who found each other through shared faith"
                     w="full"
                     h="full"

@@ -30,7 +30,7 @@ const posts = [
     title: "The Importance of Shared Values in Marriage",
     category: "Marriage",
     date: "July 28, 2026",
-    image: "/images/blog/b3.avif",
+    image: "/images/blog/b3.jpg",
     excerpt: "Why being equally yoked goes beyond just checking a box. Understanding the deep significance of shared faith in a lifelong partnership.",
   },
   {

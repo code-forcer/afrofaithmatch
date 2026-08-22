@@ -10,7 +10,7 @@ const BACKGROUND_IMAGES = [
   "/images/heros/h2.avif",
   "/images/heros/h3.avif",
   "/images/heros/h4.avif",
-  "/images/heros/h5.avif",
+  "/images/heros/h5.jpg",
   "/images/heros/h6.avif",
 ];
 
